@@ -1,0 +1,41 @@
+extends ../../templates/main
+
+block main
+  .grid_6
+    h2 The Code
+    pre.
+      \nvar sync = function (fns, callback) {
+          var called = 0,
+              hiddenCallback,
+              i;
+              
+          hiddenCallback = function () {
+              called += 1;
+              console.log(called);
+              if (called === fns.length) {
+                  callback();
+              }
+          };
+          
+          for (i = 0; i         
+  section.grid_6
+    h2 How it works
+    p Explain the snippet
+  section.grid_6
+    h2 Usage
+    pre.
+      \nsync([
+          fn1,
+          fn2,
+          function () {
+              //Anonymous function
+          },
+          ...
+      ], function () {
+          alert("All done!");
+      });
+              
+  section.grid_12
+    h2 Minified
+    pre
+      |  var sync=function(c,e){var d=0,a,b;a=function(){d+=1;if(d===c.length){e()}};for(b=0;b<c.length;b+=1){c[b](a)}};

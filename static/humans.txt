@@ -1,0 +1,13 @@
+/* humanstxt.org */
+
+
+/* TEAM */
+  Designer/Programmer/Writer: Brian Ford
+  Site: briantford.com
+  Location: Ann Arbor, MI
+  Twitter: briantford
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: Modernizr, jQuery, HTML 5 Boilerplate
+  Software: Textmate, Google Chrome

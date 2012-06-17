@@ -1,0 +1,72 @@
+﻿/*
+ [space] = floor
+ w = wall
+ I = ice cream
+ O = food
+ t = table
+ D = door (exit)
+ p = player
+ M = mom
+*/
+var = [
+"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"w                                                                                                  w",
+"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+];

@@ -1,0 +1,25 @@
+extends ../../templates/main
+
+block main
+  h2 Sort.js
+  section
+    p
+      span.date [2011.04.06]
+    p
+      |  I wrote Sort.js as a way to bridge the gap between concepts taught in computer science and practical use of JavaScript, and at the same time deepen my understanding of both. I suspect many learning JavaScript come from a similar academic background as me, with most classes using C++ or Java. With Sort.js, I aim to illustrate common programming tasks using JavaScript idioms and patterns.
+    p
+      |  So far, I have implemented Mergesort and Bubblesort, and created a visual demo for Mergesort. I hope to add visualizations and implementations for the following:
+    ul.bullet
+      li Bucket Sort
+      li Heap Sort
+      li Insertion Sort
+      li Quicksort
+    p
+      |  I plan to move this to Github soon, but for now you can see a demo
+      a(href='/files/sortjs/demo.html') here
+      |  .
+    p
+      |  In the future, I would also like to write implementations for the following graph analysis algorithms:
+    ul.bullet
+      li Floyd–Warshall shortest path algorithm
+      li Dijkstra's algorithm for single-source shortest paths

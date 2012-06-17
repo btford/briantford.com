@@ -1,0 +1,76 @@
+{
+  "email": "btford@umich.edu",
+  "twitter": "briantford",
+  "education": {
+    "university": "University of Michigan Ann Arbor",
+    "degree": "Bachelor of Science and Engineering in Computer Science and Engineering",
+    "graduation": "May 2013",
+    "gpa": "3.41",
+    "topics": [
+      {
+        "name": "Algorithm analysis and optimization"
+      },
+      {
+        "name": "Assembly language programming",
+        "explain": "MIPS"
+      },
+      {
+        "name": "Combinational logic"
+      },
+      {
+        "name": "C++ programming"
+      },
+      {
+        "name": "Datapaths and finite state machines"
+      },
+      {
+        "name": "Debugging"
+      },
+      {
+        "name": "Design patterns"
+      },
+      {
+        "name": "Matlab simulation"
+      },
+      {
+        "name": "Object-oriented programming"
+      },
+      {
+        "name": "Problem solving"
+      },
+      {
+        "name": "Unit testing"
+      },
+      {
+        "name": "Verilog HDL",
+        "explain": "I implemented a simple CPU in Verilog for my ENGR 100 course."
+      }
+    ]
+  },
+  "languages": [
+    {
+      "name": "C",
+      "explain": "I helped write a GUI framework in C for household appliances when I interned at Whirlpool Corp."
+    },
+    {
+      "name": "C++",
+      "explain": "Most of my coursework at U of M is in C++"
+    },
+    {
+      "name": "C#",
+      "explain": "My team took 1st place for the Wolverinesoft video game competition in #year# for a game we wrote using XNA."
+    },
+    {
+      "name": "Java"
+    },
+    {
+      "name": "JavaScript"
+    },
+    {
+      "name": "PHP"
+    },
+    {
+      "name": "Python"
+    }
+  ]
+}

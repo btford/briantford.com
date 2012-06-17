@@ -1,0 +1,286 @@
+@import "reset";
+
+/* =============================================================================
+   Primary styles (default + mobile)
+   Author: Brian Ford
+   ========================================================================== */
+
+$shadow-color: #111;
+
+$primary-text-color: #fff;
+
+$date-text-color: #70A078;
+
+/*  This is insanely useful
+    http://code.google.com/webfonts/preview */
+
+body {
+    background-color: #333;
+    font-size: 1em;
+    font-family: 'Tinos', sans-serif;
+    color: $primary-text-color;
+}
+
+header {
+    white-space: nowrap;
+}
+
+h1 {
+    color: $primary-text-color;
+    font-family: 'Raleway', arial;
+    font-size: 10em;
+    font-style: normal;
+    font-weight: 500;
+    
+    text-shadow: 3px 3px 1px $shadow-color;
+    
+    margin-bottom: .05em;
+    margin-top: 0px;
+}
+
+h2, h3 {
+    margin-bottom: -.2em;
+    text-shadow: 2px 2px 1px $shadow-color;
+}
+
+h2 {
+    margin-top: .5em;
+}
+
+h3 {
+    font-size: 1.4em;
+    margin-top: .5em;
+}
+
+h4 {
+    margin: .5em 0 0 0;
+}
+
+nav {
+    font-family: 'Tinos', arial, serif;
+    text-shadow: 2px 2px 1px #111;
+    word-spacing: 0em;
+    line-height: 1em;
+    
+    text-align: right;
+    margin-right: .75em;
+}
+
+#main {
+    clear: both;
+    //padding-left: .75em;
+    //text-shadow: 2px 2px 4px $shadow-color;
+}
+
+footer {
+    font-size: .8em;
+    text-shadow: 2px 2px 1px $shadow-color;
+    margin-top: 3em;
+    margin-left: 1.5em;
+	text-align: center;
+}
+
+#animation {
+    z-index:-1;
+    
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.date {
+    color: $date-text-color;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.nope {
+    text-decoration: line-through;
+}
+
+pre {
+    font-family: monospace, sans-serif;
+    white-space: pre;
+    border-color: #111;
+    border-style: dotted;
+    border-width: 1px;
+    background-color: #272727;
+    
+    padding: 5px;
+}
+
+p, img {
+    margin-bottom: 0px;
+    margin-top: .4em;
+}
+
+a, a:active, a:visited {
+    color: #7088A0;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #90A8C0;
+}
+
+header {
+    text-align: center;
+    
+    h1 {
+        font-size: 4.5em;
+    }
+}
+
+section p, pre, img, table {
+    margin-left: 0.5em;
+}
+
+nav {
+    margin-top: 0px;
+    text-align: center;
+    font-size: 1.7em;
+    margin-bottom: 10px;
+    
+    li {
+        display: inline;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+h2 {
+    font-size: 1.2em;
+}
+
+td {
+    padding: 10px;
+}
+
+th {
+    padding: 10px 20px 10px 0px;
+    border-bottom: solid white 2px;
+}
+
+#support {
+    margin-top: 10px;
+}
+
+.resume {
+    h2 {
+        border-bottom: solid #444 1px;
+    }
+}
+
+/* I'm cool */
+
+summary {
+    cursor: pointer;
+}
+
+/* From 960.gs */
+@import "gs";
+@import "mobile";
+
+/* =============================================================================
+   Primary styles (desktop specific)
+   Author: Brian Ford
+   ========================================================================== */
+
+@media only screen and (min-width: 760px) {
+    @import "720";
+    header {
+        text-align: left;
+
+        h1 {
+            font-size: 8em;
+        }
+    }
+	
+	section p, pre, img, table, .indent {
+		margin-left: 0.75em;
+	}
+    
+    nav {
+        margin-top: .75em;
+        text-align: right;
+        font-size: 1.8em;
+        margin-bottom: 0px;
+        
+        li {
+			margin-left: 0px;
+			margin-right: 0px;
+            display: block;
+            
+        }
+    }
+    h2 {
+        font-size: 1.4em;
+        margin-bottom: 4px;
+    }
+    h3 {
+        font-size: 1.1em;
+    }
+
+    // resume
+    ul.multicolumn li {
+        display: block;
+        width: 32%;
+        float: left;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    section:after {
+        clear: both;
+    }
+}
+
+@media only screen and (min-width: 980px) {
+    @import "960";
+	
+	header {
+        h1 {
+            font-size: 10em;
+        }
+    }
+	nav {
+        font-size: 2.2em;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    @import "1200";
+
+    // resume
+    ul.multicolumn li {
+        display: block;
+        width: 24%;
+        float: left;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    @import "1560";
+}
+
+/* Fluid */
+@media only screen and (min-width: 1920px) {
+    @import "fluid";
+	
+	nav {
+		li {
+			display: inline;
+		}
+	}
+}
+
+// add semantic helper classes
+// --------------------------------------------------------
+@import "helper";
+
+// print styles disabled
+@import "print";

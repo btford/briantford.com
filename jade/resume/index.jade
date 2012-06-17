@@ -1,0 +1,106 @@
+extends ../templates/main
+
+block main
+  p.grid_12
+    |  This is a work in progress... you should probably just grab the 
+    a(href='/files/resume.2011.09.26.pdf') PDF
+    |  .
+  .contact.grid_12
+    //- h3 Contact Info
+    br 
+    |  #{email}
+    br
+    a(href='http://twitter.com/#{twitter}') @#{twitter}
+  h2.grid_12 Education
+  .grid_8
+    |  #{education.university}
+    br
+    |  #{education.degree}
+    br
+  .grid_4.right
+    |  Graduation: #{education.graduation}
+    br
+    |  GPA: #{education.gpa}
+  h4.grid_12 Topics:
+  - var numCols = 3;
+  - var topics = education.topics;
+  - for (var i = 0; i < numCols; i++) {
+    .grid_4
+      - for (var j = 0; j < Math.ceil(topics.length / numCols) && (numCols*i + j < topics.length); j++) {
+        details
+          summary #{topics[numCols*i + j].name}
+          if topics[numCols*i + j].explain
+            p #{topics[numCols*i + j].explain}
+      - }
+  - }
+
+  h4.grid_12 Languages:
+  - var numCols = 3;
+  - var topics = languages;
+  - for (var i = 0; i < numCols; i++) {
+    .grid_4
+      - for (var j = 0; j < Math.ceil(topics.length / numCols) && (numCols*i + j < topics.length); j++) {
+        details
+          summary #{topics[numCols*i + j].name}
+          if topics[numCols*i + j].explain
+            p #{topics[numCols*i + j].explain}
+      - }
+  - }
+
+  h2.grid_12 Experience
+  .grid_6
+    h3
+      |  Lakeshore Public High School 
+      sup
+        a(href='http://www.lakeshoreschools.k12.mi.us/high/') link
+    |  (August 2008 to May 2009)
+    |  IT Assistant
+    p
+      |  Maintained the network, servers, computers and other technology
+      |  resources at a public school. Performed both hardware and software
+      |  maintenance on hundreds of computers.
+  .grid_6
+    h3  Whirlpool Corporation
+    |  (May 2010 to August 2010)
+    |  Software Development Summer Intern
+    p
+      |  Worked in a software team developing using the Agile software
+      |  development techniques to maintain a GUI framework in C for an
+      |  embedded platform. Wrote unit tests, optimized components of the
+      |  framework, debugged issues.
+  .grid_6
+    h3
+      abbr(title='University of Michigan') U of M
+      |   -  Interactive and Social Computing Group 
+      sup
+        a(href='//misc.si.umich.edu/') link
+    |  Web Application Developer ( to September 2011)
+    p
+      |  Wrote and maintained a Firefox extension and web application used in
+      |  research to gather data on reading habits of social news site users.
+      |  Worked on a Facebook application allowing users to share exercise
+      |  habits from pedometers and encourage each other to set and meet goals.
+  h2.grid_12 Skills
+  .grid_6
+    h3 Computer Programming
+    .indent
+      |  Experience in algorithmic design and implementation across a wide
+      |  variety of programming languages including assembly, C, C++, C#, Java,
+      |  JavaScript, PHP, and Python.
+  .grid_6
+    h3 Embedded Systems
+    .indent
+      |  Experience writing circuits, hardware drivers, and assembly language
+      |  instruction set architecture implementations in Verilog description
+      |  language. Used the Altera DE2 Development Board with Nios II microprocessor
+      |  and Cyclone II FPGA.
+  .grid_6
+    h3 Website Design
+    .indent
+      |  Experience in creating front-end design with HTML, CSS, JavaScript, and
+      |  Adobe Flash and programming webserver and database functionality using
+      |  PHP and MySQL. Experience with emerging HTML5 technologies, responsive design.
+  .grid_12
+    p References available upon request.
+    p
+      a(href='/files/resume.2011.09.26.pdf') Download my Resume (as a PDF)

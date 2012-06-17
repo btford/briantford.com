@@ -1,0 +1,24 @@
+extends ../../templates/main
+
+block main
+  section
+    h2 One-Click Extract for Windows via a Simple Batch Script
+    section.grid_6
+      h3 Why?
+      p
+        |  My default course of action when dealing with any compressed file is to first extract it into its own directory.
+    section.grid_6
+      h3 How?
+      p
+        |  First, make the
+        a(href='http://www.7-zip.org/') 7zip
+        |  command line utility available from the Windows command prompt. I achieved this by copying the utility and .dll to the System32 directory.* By associating the following very simple batch file with .zip and .rar files.
+      pre.
+        \nSet outdir=%1
+        7z x %1 -o*
+        explorer %outdir:~0,-4%          
+    section.grid_12
+      h3 Notes
+      p *This is probably the wrong way to do this.
+      p
+        |  -In order for the explorer window to open up at the location of the folder containing the extracted files, the length of the file extension must be three.

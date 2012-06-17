@@ -1,0 +1,41 @@
+extends ../templates/main
+
+block main
+  section.grid_6
+    h2 Projects
+    p This is what I do in my spare time.
+    ul.bullet
+      li
+        a(href='/etc/projects/datamining') Yahoo Datamining Visualization
+      li
+        a(href='/etc/projects/sortjs') Sort.js
+      li
+        a(href='/etc/projects/socjam') Social Jam
+      li
+        a(href='/etc/projects/jsgamelib') jsGameLib
+      li
+        a(href='/etc/projects/eatyourveggies') Eat Your Veggies
+  section.grid_6
+    h2 Scripts
+    p
+      |  Short, (hopefully) useful scripts, utilities, and tools that make my life easier.
+    ul.bullet
+      li
+        |  Miscellaneous
+        a(href='/etc/scripts/textmate') Textmate snippets
+      li
+        a(href='/etc/scripts/oneclick') One-Click File Unzip
+        |  batch file for Windows
+  section.grid_6
+    h2 Writings
+    p Occasionally, I write something that isn't code.
+    h3 Software Development
+    ul.bullet
+      li
+        a(href='/etc/writings/about') About Me
+      //-
+         <li><a href="/etc/writings/likes">Things I Like</a></li> 
+    h3 Web Development
+    ul.bullet
+      li
+        a(href='/etc/snippets/duff-js') Duff's Device in JavaScript

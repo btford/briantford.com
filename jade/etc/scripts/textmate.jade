@@ -1,0 +1,27 @@
+extends ../../templates/main
+
+block main
+  h2 Textmate Snippets
+  section
+    h3 Why?
+    section
+      p
+        |  Because I love
+        a(href='http://macromates.com/') Textmate
+        |  , and I love doing things faster. If any of these snippets were especially good, I would release them as a bundle, but their purposes are too scattered to group into a bundle, and many of these are quite unpolished. Still, if they are useful to you, feel free to copy/paste, extend, hack, or do whatever you want with them.
+    h3 Static Code Analysis Tools
+    section
+      p
+        |  I like the idea of static code analysis, but I found it cumbersome to run tools constantly to check for errors. Adding them to build scripts helped, but it still felt too slow. Lately, I've been enjoying the combination of Textmate, various tools, and
+        a(href='http://growl.info/') Growl
+        |  . For Java, I use
+        a(href='http://pmd.sourceforge.net/') PMD
+        |  . For JavaScript, I use
+        a(href='https://github.com/jlbfalcao/jslint-v8') this command line
+        |  , v8-powered version of
+        a(href='http://www.jslint.com/') JSLint
+        |  . The general pattern is something like this:
+      pre.
+        \nsometool |  growlnotify          
+      p
+        |  I bind this to ⌘ + S, so whenever I save, I get a nice Growl message telling me what I broke.
