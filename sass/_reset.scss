@@ -99,12 +99,19 @@ sub { bottom: -0.25em; }
    ========================================================================== */
 
 // by default, no bullets
-ul, ol { margin: 0; padding: 0; list-style-type: none; }
+// ul, ol { margin: 0; padding: 0; list-style-type: none; }
 
 // with a bullet-class ul or ol, show bullets
-ul.bullet, ol.bullet { margin: 1em 0; padding: 0 0 0 40px; }
-ul.bullet { list-style-type: disc; }
-ol.bullet { list-style-type: decimal; }
+ul, ol {
+   margin: 1em 0;
+   padding: 0 0 0 40px;
+}
+ul {
+   list-style-type: disc;
+}
+ol {
+   list-style-type: decimal;
+}
 
 dd { margin: 0 0 0 40px; }
 nav ul, nav ol { list-style: none; margin: 0; padding: 0; }
