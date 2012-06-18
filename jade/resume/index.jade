@@ -2,15 +2,16 @@ extends ../templates/main
 
 block main
   p.grid_12
-    |  This is a work in progress... you should probably just grab the 
+    |  This is a work in progress. You might want to look at the 
     a(href='/files/resume.2011.09.26.pdf') PDF
-    |  .
-  .contact.grid_12
-    //- h3 Contact Info
-    br 
-    |  #{email}
-    br
+    |  version instead.
+
+  h2.grid_12 Contact
+  .contact.grid_6 Email: #{email}
+  .contact.grid_6
+    | Twitter: 
     a(href='http://twitter.com/#{twitter}') @#{twitter}
+
   h2.grid_12 Education
   .grid_8
     |  #{education.university}
@@ -50,15 +51,24 @@ block main
   h2.grid_12 Experience
   .grid_6
     h3
-      |  Lakeshore Public High School 
+      | Google - AngularJS 
       sup
-        a(href='http://www.lakeshoreschools.k12.mi.us/high/') link
-    |  (August 2008 to May 2009)
-    |  IT Assistant
+        a(href='//angularjs.org') link
+    |  Software Engineering Intern (May 2012 to August 2012)
     p
-      |  Maintained the network, servers, computers and other technology
-      |  resources at a public school. Performed both hardware and software
-      |  maintenance on hundreds of computers.
+      | Wrote a debugger for AngularJS - a client-side JavaScript library.
+  .grid_6
+    h3
+      abbr(title='University of Michigan') U of M
+      |   -  Interactive and Social Computing Group 
+      sup
+        a(href='//misc.si.umich.edu/') link
+    |  Web Application Developer (May 2011 to September 2011)
+    p
+      |  Wrote and maintained a Firefox extension and web application used in
+      |  research to gather data on reading habits of social news site users.
+      |  Worked on a Facebook application allowing users to share exercise
+      |  habits from pedometers and encourage each other to set and meet goals.
   .grid_6
     h3  Whirlpool Corporation
     |  (May 2010 to August 2010)
@@ -70,16 +80,15 @@ block main
       |  framework, debugged issues.
   .grid_6
     h3
-      abbr(title='University of Michigan') U of M
-      |   -  Interactive and Social Computing Group 
+      |  Lakeshore Public High School 
       sup
-        a(href='//misc.si.umich.edu/') link
-    |  Web Application Developer ( to September 2011)
+        a(href='http://www.lakeshoreschools.k12.mi.us/high/') link
+    |  (August 2008 to May 2009)
+    |  IT Assistant
     p
-      |  Wrote and maintained a Firefox extension and web application used in
-      |  research to gather data on reading habits of social news site users.
-      |  Worked on a Facebook application allowing users to share exercise
-      |  habits from pedometers and encourage each other to set and meet goals.
+      |  Maintained the network, servers, computers and other technology
+      |  resources at a public school. Performed both hardware and software
+      |  maintenance on hundreds of computers.
   h2.grid_12 Skills
   .grid_6
     h3 Computer Programming
