@@ -4,6 +4,14 @@ var fs = require('fs'),
   jade = require('jade'),
   _ = require('underscore');
 
+jade.filters.javascript = function (str) {
+  return '<pre class="prettyprint linenums lang-js">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
+};
+
+jade.filters.jade = function (str) {
+  return '<pre class="prettyprint linenums lang-html">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
+};
+
 var jadeBase = __dirname + '/jade';
 var outBase = __dirname + '/out';
 

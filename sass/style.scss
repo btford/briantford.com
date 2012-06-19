@@ -44,12 +44,14 @@ h2, h3 {
 }
 
 h2 {
-  margin-top: .5em;
+  margin-top: 1em;
+  //color: #B5D6B4;
 }
 
 h3 {
   font-size: 1.4em;
-  margin-top: .5em;
+  margin-top: 1em;
+  //color: #A09E70;
 }
 
 h4 {
@@ -104,8 +106,6 @@ footer {
 pre {
   font-family: monospace, sans-serif;
   white-space: pre;
-  border-color: #111;
-  border-style: dotted;
   border-width: 1px;
   background-color: #272727;
   
@@ -151,7 +151,7 @@ nav {
   }
 }
 h2 {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 td {
@@ -176,6 +176,9 @@ th {
 summary {
   cursor: pointer;
 }
+
+/* from google code prettify */
+@import "prettify";
 
 /* From 960.gs */
 @import "gs";
@@ -213,11 +216,12 @@ summary {
     }
   }
   h2 {
-    font-size: 1.4em;
+    font-size: 2em;
     margin-bottom: 4px;
   }
   h3 {
-    font-size: 1.1em;
+    font-size: 1.3em;
+    margin-top: 1.3em;
   }
 
   // resume
