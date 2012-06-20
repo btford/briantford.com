@@ -1,0 +1,405 @@
+extends ../../templates/main
+
+block main
+  h2 Writing an AngularJS App with an Express + Node.js Backend
+  section
+    :markdown
+      AngularJS is like the missing [Batarang](http://en.wikipedia.org/wiki/Batarang) on your utility belt of web development awesomeness. It gives you two-way data binding that's both easy to use and fast, a powerful directive system that lets you extend HTML to do your bidding, plus a lot more. [Express](http://expressjs.com/) is an excellent webserver for Node.js that provides routing, middleware, and sessions. Incidentally, the two work quite well together!
+
+      In this tutorial, I'm going to walk through writing a simple blog app with Angular and Express. For this, I'm assuming basic knowledge of Angular and Node. If you're new to Angular, I highly recommend that you check out the [AngularJS homepage](http://angularjs.org) first.
+
+      ### Anatomy of the App
+
+      This application is really divided into two parts: client, and server. The client runs on the web browser, and does asynchronous communication to the server. The server then retrieves and stores data for the client. For this app, we'll use AngularJS to build the client and Express to build the server.
+
+      ### Getting the Angular Express Seed
+
+      To kick start the process of writing an AngularJS app, I've created the [Angular Express Seed](https://github.com/btford/angular-express-seed), based on the [Express web server](http://expressjs.com/) (which runs on Node.js) and the [Angular Seed](https://github.com/angular/angular-seed).
+
+      To get started, you can either clone the angular-node-seed repo from Github:
+
+          git clone git://github.com/btford/angular-node-seed my-project
+
+      or [download it as a zip](https://github.com/btford/angular-express-seed/zipball/master).
+
+      Once you have the seed, you need to grab a few dependancies with npm. Open a terminal to the directory with the seed, and run:
+
+          npm install
+
+      With these dependencies installed, you can run the skeleton app via:
+
+          node app.js
+
+      and pointing your browser to `http://localhost:3000`.
+
+      ### Building the AngularJS client
+      
+      We'll start by defining some views and client-side behavior, then writing a JSON API that our AngularJS client can interact with.
+
+      First, we're going to write some views using [Jade](http://jade-lang.com/). Jade is a template language that integrates well with Express. It has a one-to-one correspondence with HTML, but let's you write it in a more concise fashion.
+    :markdown
+      For example, this Jade:
+    :jade
+      doctype 5
+      html(lang="en")
+        head
+          title= pageTitle
+        body
+          h1 Jade - node template engine
+          #container
+            if youAreUsingJade
+              p You are amazing
+            else
+              p Get on it!
+    :markdown
+      Will compile to this HTML:
+    :html
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <title>Jade</title>
+        </head>
+        <body>
+          <h1>Jade - node template engine</h1>
+          <div id="container">
+            <p>You are amazing</p>
+          </div>
+        </body>
+      </html>
+    :markdown
+      An important note here is that while Jade lets you do interpolation via `#\{someVar\}`, we're going to reserve interpolation for AngularJS to take care of on the client so can take advantage of the two-way data binding that Angular provides. Nevertheless, Jade is an awesome HTML preprocessor, and takes a lot of the typing out of writing views.
+
+      Open `views/index.jade` and replace the contents with:
+    :jade
+      extends layout
+
+      block body
+        div
+          h2 My Blog
+          ul
+            li
+              a(href='/') Home
+            li
+              a(href='/addPost') Add a new post
+
+          div(ng-view)
+
+        script(src='js/lib/angular/angular.js')
+        script(src='js/app.js')
+        script(src='js/services.js')
+        script(src='js/controllers.js')
+        script(src='js/filters.js')
+        script(src='js/directives.js')
+    :markdown
+      The first few lines tell Express to wrap the boilerplate template in `views/layout.jade` around our view. Then we have a header, followed by a navigation bar, and finally a placeholder for Angular views.
+    :markdown
+      Next, we'll add views for each of the basic functions: reading a list of short summaries of posts, reading a full-length post, editing a post, or deleting a post. Create a new file, `views/partials/index.jade`:
+    :jade
+      p There are {{posts.length}} posts
+      div(ng-repeat='post in posts')
+        h3 {{post.title}}
+        div {{post.text}}
+        a(href='#/readPost/{{post.id}}') More
+        |  - 
+        a(href='#/editPost/{{post.id}}') Edit
+        |  - 
+        a(href='#/deletePost/{{post.id}}') Delete
+    :markdown
+      This is a pretty straightforward view: it displays the number of posts at the top, then iterates through each post creating a div for each one, with links to read the full post, edit it, or delete it.
+    :markdown
+      Let's create a few more views. The first is for reading a full post on its own page: `views/partials/readPost.jade`
+    :jade
+      h3 {{post.title}}
+      div {{post.text}}
+    :markdown
+      One for adding a new post: `views/partials/addPost.jade`
+    :jade
+      h2 Write a new post
+      label(for='title') Title: 
+      input(ng-model='title', name='title')
+      p Body:
+      textarea(ng-model='text', cols='50', rows='15')
+      p
+        button(ng-click='submitPost()') Submit Post
+    :markdown
+      One for editing an existing post: `views/partials/editPost.jade`
+    :jade
+      h2 Edit post
+      label(for='title') Title: 
+      input(ng-model='title', name='title')
+      p Body:
+      textarea(ng-model='text', cols='50', rows='15')
+      p
+        button(ng-click='editPost()') Edit Post
+    :markdown
+      Lastly, a view for deleting a post: `views/partials/deletePost.jade`
+    :jade
+      h2 {{post.title}}
+      div {{post.text}}
+      p
+        | Are you sure you want to delete this post? 
+        button(ng-click='deletePost()') Yes
+        |  - 
+        button(ng-click='home()') No thanks
+    :markdown
+      Now we need to connect these views to controllers. Open `public/js/app.js` and modify it accordingly:
+    :javascript
+      // Declare app level module which depends on filters, and services
+      angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives']).
+        config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+          $routeProvider.when('/', {
+            templateUrl: 'partials/index',
+            controller: IndexCtrl
+          });
+          $routeProvider.when('/addPost', {
+            templateUrl: 'partials/addPost',
+            controller: AddPostCtrl
+          });
+          $routeProvider.when('/readPost/:id', {
+            templateUrl: 'partials/readPost',
+            controller: ReadPostCtrl
+          });
+          $routeProvider.when('/editPost/:id', {
+            templateUrl: 'partials/editPost',
+            controller: EditPostCtrl
+          });
+          $routeProvider.when('/deletePost/:id', {
+            templateUrl: 'partials/deletePost',
+            controller: DeletePostCtrl
+          });
+          $routeProvider.otherwise({
+            redirectTo: '/'
+          });
+          $locationProvider.html5Mode(true);
+        }]);
+    :markdown
+      This routing configuration will also let the app use the HTML5 push/pop history API.
+
+      We're almost done with the client side of the app. The last thing we need is the set of controllers to make requests to our server. Open `public/js/controllers.js`:
+    :javascript
+      function IndexCtrl($scope, $http) {
+        $scope.posts = [];
+
+        $http({method: 'GET', url: '/api/posts'}).
+          success(function(data, status, headers, config) {
+            $scope.posts = data.posts;
+          });
+      }
+
+      function AddPostCtrl($scope, $http, $location) {
+        $scope.submitPost = function () {
+          $http.post('/api/addPost', {
+            title: $scope.title,
+            text: $scope.text
+          }).
+          success(function(data, status, headers, config) {
+            $location.path('/');
+          });
+        };
+      }
+
+      function ReadPostCtrl($scope, $http, $routeParams) {
+        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
+          success(function(data, status, headers, config) {
+            $scope.post = data.post;
+          });
+      }
+
+      function EditPostCtrl($scope, $http, $location, $routeParams) {
+        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
+          success(function(data, status, headers, config) {
+            $scope.title = data.post.title;
+            $scope.text = data.post.text;
+          });
+
+        $scope.editPost = function () {
+          $http.post('/api/editPost', {
+            id: $routeParams.id,
+            title: $scope.title,
+            text: $scope.text
+          }).
+          success(function(data, status, headers, config) {
+            $location.path('/readPost/' + $routeParams.id);
+          });
+        };
+      }
+
+      function DeletePostCtrl($scope, $http, $location, $routeParams) {
+        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
+          success(function(data, status, headers, config) {
+            $scope.post = data.post;
+          });
+
+        $scope.deletePost = function () {
+          $http.post('/api/deletePost', {
+            id: $routeParams.id
+          }).
+          success(function(data, status, headers, config) {
+            $location.path('/');
+          });
+        };
+
+        $scope.home = function () {
+          $location.path('/');
+        };
+      }
+    :markdown
+      The controllers are all relatively straightforward: they make calls to `$http` to communicate with the server, and attach methods to the controller's scope to allow the corresponding view to make additional requests on a button click.
+
+      Let's look at `EditPostCtrl` alongside its view, `views/partials/editPost.jade` for example:
+    :javascript
+      function EditPostCtrl($scope, $http, $location, $routeParams) {
+        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
+          success(function(data, status, headers, config) {
+            $scope.title = data.post.title;
+            $scope.text = data.post.text;
+          });
+
+        $scope.editPost = function () {
+          $http.post('/api/editPost', {
+            id: $routeParams.id,
+            title: $scope.title,
+            text: $scope.text
+          }).
+          success(function(data, status, headers, config) {
+            $location.path('/readPost/' + $routeParams.id);
+          });
+        };
+      }
+    :jade
+      h2 Edit post
+      label(for='title') Title: 
+      input(ng-model='title', name='title')
+      p Body:
+      textarea(ng-model='text', cols='50', rows='15')
+      p
+        button(ng-click='editPost()') Edit Post
+    :markdown
+      When the controller loads, it makes a request to `/api/post/$routeParams.id`, which it uses to populate `$scope.title` and `$scope.text`. Then, it attaches a method `editPost` to the local scope, which sends a POST request to the server which contains the id of the post to edit and the updated title and text. In `editPost.jade`, the input and textarea have `ng-model` attributes that setup data binding, and we attach `$scope.editPost()` to a button so that it fires when the button is pressed.
+
+    :markdown
+      ### Building the JSON server with Express
+
+      Typically, you'd connect to some database and store/load your data from there, however for this example app I'm just going to use an in-memory object.
+
+      Express has an excellent way to respond with JSON rather than HTML through [res.json](http://expressjs.com/guide.html#res.json\(\)).
+
+      Open `routes/api.js` and replace the contents with:
+    :javascript
+      // initialize our faux database
+      var data = {
+        "posts": [
+          {
+            "title": "Lorem ipsum",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          },
+          {
+            "title": "Sed egestas",
+            "text": "Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus."
+          }
+        ]
+      };
+
+      // GET
+
+      exports.posts = function (req, res) {
+        var posts = [], i, post, text;
+        for (i = 0; i < Math.min(data.posts.length, 5); i++) {
+          post = data.posts[i];
+          posts.push({
+            id: i,
+            title: post.title,
+            text: post.text.substr(0, 50) + '...'
+          });
+        }
+        res.json({
+          posts: posts
+        });
+      };
+
+      exports.post = function (req, res) {
+        var id = req.params.id;
+        if (id >= 0 && id < data.posts.length) {
+          res.json({
+            post: data.posts[id]
+          });
+        } else {
+          res.json(false);
+        }
+      };
+
+    :markdown
+      We'll continue adding code to this file to handle adding, editing, and deleting posts:
+    :javascript
+      // POST
+      exports.addPost = function (req, res) {
+        data.posts.push(req.body);
+        res.json(req.body);
+      };
+
+      exports.editPost = function (req, res) {
+        var id = req.body.id,
+          title = req.body.title,
+          text = req.body.text;
+
+        if (id >= 0 && id < data.posts.length) {
+          data.posts[id].title = title;
+          data.posts[id].text = text;
+          res.json(true);
+        } else {
+          res.json(false);
+        }
+      };
+
+      exports.deletePost = function (req, res) {
+        var id = req.body.id;
+
+        if (id >= 0 && id < data.posts.length) {
+          data.posts.splice(id, 1);
+          res.json(true);
+        } else {
+          res.json(false);
+        }
+      };
+    :markdown
+      Next, we have to connect these routes to the appropriate requests. Open `app.js`, and below the app configuration, add this code under the `//Routes` comment:
+    :javascript
+      /** app init & config... */
+
+      // Routes
+
+      app.get('/', routes.index);
+      app.get('/partials/:name', routes.partials);
+
+      // JSON API
+
+      app.get('/api/posts', api.posts);
+      app.get('/api/post/:id', api.post);
+
+      app.post('/api/addPost', api.addPost);
+      app.post('/api/editPost', api.editPost);
+      app.post('/api/deletePost', api.deletePost);
+
+      /* ... */
+    :markdown
+      The first route takes care of serving our main page that runs the angular app. The next route lets Angular load partials on demand.
+
+      The following routes establish our JSON API, linking `http://yourapp.com/api/posts` to the `posts` route, `http://yourapp.com/api/addPost` to the `addPost` route, and so on. Notice the `:id` on line 13: that's a parameter parsed out of the URL by Express. Why don't the bottom three routes have that parameter, then? The reason is because it's better to do a POST rather than a GET to avoid cross-site scripting. In general, when requesting information, use GET, but when invoking some action, use POST.
+
+      Start up the app as we did with the skeleton earlier:
+
+          node app.js
+
+      You should be able to add, update, read, and delete posts.
+
+    :markdown
+      ### Conclusion
+
+      Writing apps with AngularJS and Express is both fun and easy.
+
+      You can [grab the finished product from Github](https://github.com/btford/angular-express-seed), or [take a look at a live demo here](http://ang-exp-blog.briantford.com/).
+  script(src='/js/libs/prettify.js')
+  script
+    prettyPrint();
+
+
