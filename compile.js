@@ -12,6 +12,10 @@ jade.filters.jade = function (str) {
   return '<pre class="prettyprint linenums lang-html">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
 };
 
+jade.filters.html = function (str) {
+  return '<pre class="prettyprint linenums lang-html">' + str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/\n/g, '\\n') + '</pre>';
+};
+
 var jadeBase = __dirname + '/jade';
 var outBase = __dirname + '/out';
 
