@@ -5,11 +5,11 @@ block main
   span(class='date') [2012.06.20]
   section
     :markdown
-      AngularJS is like the missing [Batarang](http://en.wikipedia.org/wiki/Batarang) on your utility belt of web development awesomeness. It gives you two-way data binding that's both easy to use and fast, a powerful directive system that lets you extend HTML to do your bidding, plus a lot more. [Express](http://expressjs.com/) is an excellent webserver for Node.js that provides routing, middleware, and sessions. Incidentally, the two work quite well together!
+      AngularJS is like the missing [Batarang](http://en.wikipedia.org/wiki/Batarang) on your utility belt of web development awesomeness. It gives you two-way data binding that's both easy to use and fast, a powerful directive system that lets you use create reusable custom components, plus a lot more. [Express](http://expressjs.com/) is an excellent webserver for Node.js that provides routing, middleware, and sessions. Incidentally, the two work quite well together!
 
       In this tutorial, I'm going to walk through writing a simple blog app with Angular and Express. For this, I'm assuming basic knowledge of Angular and Node. If you're new to Angular, I highly recommend that you check out the [AngularJS homepage](http://angularjs.org) first.
 
-      If you'd rather skip to the end, you can [grab the finished product from Github](https://github.com/btford/angular-express-seed), or [take a look at a live demo here](http://ang-exp-blog.briantford.com/).
+      If you'd rather skip to the end and see the finished product, you can [grab the finished product from Github](https://github.com/btford/angular-express-seed), or [take a look at a live demo here](http://ang-exp-blog.briantford.com/).
 
       ### Anatomy of the App
 
@@ -25,7 +25,7 @@ block main
 
       or [download it as a zip](https://github.com/btford/angular-express-seed/zipball/master).
 
-      Once you have the seed, you need to grab a few dependancies with npm. Open a terminal to the directory with the seed, and run:
+      Once you have the seed, you need to grab a few dependencies with npm. Open a terminal to the directory with the seed, and run:
 
           npm install
 
@@ -39,7 +39,7 @@ block main
       
       We'll start by defining some views and client-side behavior, then writing a JSON API that our AngularJS client can interact with.
 
-      First, we're going to write some views using [Jade](http://jade-lang.com/). Jade is a template language that integrates well with Express. It has a one-to-one correspondence with HTML, but let's you write it in a more concise fashion.
+      First, we're going to write some views using [Jade](http://jade-lang.com/). Jade is a template language that integrates well with Express. It lets you write HTML more concisely.
     :markdown
       For example, this Jade:
     :jade
@@ -116,9 +116,9 @@ block main
     :jade
       h2 Write a new post
       label(for='title') Title: 
-      input(ng-model='title', name='title')
+      input(ng-model='form.title', name='title')
       p Body:
-      textarea(ng-model='text', cols='50', rows='15')
+      textarea(ng-model='form.text', cols='50', rows='15')
       p
         button(ng-click='submitPost()') Submit Post
     :markdown
@@ -126,9 +126,9 @@ block main
     :jade
       h2 Edit post
       label(for='title') Title: 
-      input(ng-model='title', name='title')
+      input(ng-model='form.title', name='title')
       p Body:
-      textarea(ng-model='text', cols='50', rows='15')
+      textarea(ng-model='form.text', cols='50', rows='15')
       p
         button(ng-click='editPost()') Edit Post
     :markdown
@@ -147,100 +147,91 @@ block main
       // Declare app level module which depends on filters, and services
       angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives']).
         config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-          $routeProvider.when('/', {
-            templateUrl: 'partials/index',
-            controller: IndexCtrl
-          });
-          $routeProvider.when('/addPost', {
-            templateUrl: 'partials/addPost',
-            controller: AddPostCtrl
-          });
-          $routeProvider.when('/readPost/:id', {
-            templateUrl: 'partials/readPost',
-            controller: ReadPostCtrl
-          });
-          $routeProvider.when('/editPost/:id', {
-            templateUrl: 'partials/editPost',
-            controller: EditPostCtrl
-          });
-          $routeProvider.when('/deletePost/:id', {
-            templateUrl: 'partials/deletePost',
-            controller: DeletePostCtrl
-          });
-          $routeProvider.otherwise({
-            redirectTo: '/'
-          });
+          $routeProvider.
+            when('/', {
+              templateUrl: 'partials/index',
+              controller: IndexCtrl
+            }).
+            when('/addPost', {
+              templateUrl: 'partials/addPost',
+              controller: AddPostCtrl
+            }).
+            when('/readPost/:id', {
+              templateUrl: 'partials/readPost',
+              controller: ReadPostCtrl
+            }).
+            when('/editPost/:id', {
+              templateUrl: 'partials/editPost',
+              controller: EditPostCtrl
+            }).
+            when('/deletePost/:id', {
+              templateUrl: 'partials/deletePost',
+              controller: DeletePostCtrl
+            }).
+            otherwise({
+              redirectTo: '/'
+            });
           $locationProvider.html5Mode(true);
         }]);
     :markdown
-      This routing configuration will also let the app use the HTML5 push/pop history API.
+      This routing configuration will also let the app use the [HTML5 push/pop history API](https://developer.mozilla.org/en/DOM/Manipulating_the_browser_history).
 
       We're almost done with the client side of the app. The last thing we need is the set of controllers to make requests to our server. Open `public/js/controllers.js`:
     :javascript
       function IndexCtrl($scope, $http) {
-        $scope.posts = [];
-
-        $http({method: 'GET', url: '/api/posts'}).
+        $http.get('/api/posts').
           success(function(data, status, headers, config) {
             $scope.posts = data.posts;
           });
       }
 
       function AddPostCtrl($scope, $http, $location) {
+        $scope.form = {};
         $scope.submitPost = function () {
-          $http.post('/api/addPost', {
-            title: $scope.title,
-            text: $scope.text
-          }).
-          success(function(data, status, headers, config) {
-            $location.path('/');
-          });
+          $http.post('/api/post', $scope.form).
+            success(function(data) {
+              $location.path('/');
+            });
         };
       }
 
       function ReadPostCtrl($scope, $http, $routeParams) {
-        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
-          success(function(data, status, headers, config) {
+        $http.get('/api/post/' + $routeParams.id).
+          success(function(data) {
             $scope.post = data.post;
           });
       }
 
       function EditPostCtrl($scope, $http, $location, $routeParams) {
-        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
-          success(function(data, status, headers, config) {
-            $scope.title = data.post.title;
-            $scope.text = data.post.text;
+        $scope.form = {};
+        $http.get('/api/post/' + $routeParams.id).
+          success(function(data) {
+            $scope.form = data.post;
           });
 
         $scope.editPost = function () {
-          $http.post('/api/editPost', {
-            id: $routeParams.id,
-            title: $scope.title,
-            text: $scope.text
-          }).
-          success(function(data, status, headers, config) {
-            $location.path('/readPost/' + $routeParams.id);
-          });
+          $http.put('/api/post/' + $routeParams.id, $scope.form).
+            success(function(data) {
+              $location.url('/readPost/' + $routeParams.id);
+            });
         };
       }
 
       function DeletePostCtrl($scope, $http, $location, $routeParams) {
-        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
-          success(function(data, status, headers, config) {
+        $http.get('/api/post/' + $routeParams.id).
+          success(function(data) {
             $scope.post = data.post;
           });
 
         $scope.deletePost = function () {
-          $http.post('/api/deletePost', {
-            id: $routeParams.id
-          }).
-          success(function(data, status, headers, config) {
-            $location.path('/');
-          });
+          $http.delete('/api/post/' + $routeParams.id).
+            success(function(data) {
+              $location.url('/');
+            });
         };
 
         $scope.home = function () {
-          $location.path('/');
+          $location.url('/');
         };
       }
     :markdown
@@ -249,33 +240,29 @@ block main
       Let's look at `EditPostCtrl` alongside its view, `views/partials/editPost.jade` for example:
     :javascript
       function EditPostCtrl($scope, $http, $location, $routeParams) {
-        $http({method: 'GET', url: '/api/post/' + $routeParams.id}).
-          success(function(data, status, headers, config) {
-            $scope.title = data.post.title;
-            $scope.text = data.post.text;
+        $scope.form = {};
+        $http.get('/api/post/' + $routeParams.id).
+          success(function(data) {
+            $scope.form = data.post;
           });
 
         $scope.editPost = function () {
-          $http.post('/api/editPost', {
-            id: $routeParams.id,
-            title: $scope.title,
-            text: $scope.text
-          }).
-          success(function(data, status, headers, config) {
-            $location.path('/readPost/' + $routeParams.id);
-          });
+          $http.put('/api/post/' + $routeParams.id, $scope.form).
+            success(function(data) {
+              $location.url('/readPost/' + $routeParams.id);
+            });
         };
       }
     :jade
       h2 Edit post
       label(for='title') Title: 
-      input(ng-model='title', name='title')
+      input(ng-model='form.title', name='title')
       p Body:
-      textarea(ng-model='text', cols='50', rows='15')
+      textarea(ng-model='form.text', cols='50', rows='15')
       p
         button(ng-click='editPost()') Edit Post
     :markdown
-      When the controller loads, it makes a request to `/api/post/$routeParams.id`, which it uses to populate `$scope.title` and `$scope.text`. Then, it attaches a method `editPost` to the local scope, which sends a POST request to the server which contains the id of the post to edit and the updated title and text. In `editPost.jade`, the input and textarea have `ng-model` attributes that setup data binding, and we attach `$scope.editPost()` to a button so that it fires when the button is pressed.
+      When the controller loads, it makes a request to `/api/post/{{$routeParams.id}}`, which it uses to populate `$scope.title` and `$scope.text`. Then, it attaches a method `editPost` to the local scope, which sends a POST request to the server which contains the id of the post to edit and the updated title and text. In `editPost.jade`, the input and textarea have `ng-model` attributes that setup data binding, and we attach `$scope.editPost()` to a button so that it fires when the button is pressed.
 
     :markdown
       ### Building the JSON server with Express
@@ -303,15 +290,14 @@ block main
       // GET
 
       exports.posts = function (req, res) {
-        var posts = [], i, post, text;
-        for (i = 0; i < Math.min(data.posts.length, 5); i++) {
-          post = data.posts[i];
+        var posts = [];
+        data.posts.forEach(function (post, i) {
           posts.push({
             id: i,
             title: post.title,
             text: post.text.substr(0, 50) + '...'
           });
-        }
+        });
         res.json({
           posts: posts
         });
@@ -337,22 +323,21 @@ block main
         res.json(req.body);
       };
 
+      // PUT
       exports.editPost = function (req, res) {
-        var id = req.body.id,
-          title = req.body.title,
-          text = req.body.text;
+        var id = req.params.id;
 
         if (id >= 0 && id < data.posts.length) {
-          data.posts[id].title = title;
-          data.posts[id].text = text;
+          data.posts[id] = req.body;
           res.json(true);
         } else {
           res.json(false);
         }
       };
 
+      // DELETE
       exports.deletePost = function (req, res) {
-        var id = req.body.id;
+        var id = req.params.id;
 
         if (id >= 0 && id < data.posts.length) {
           data.posts.splice(id, 1);
@@ -374,11 +359,11 @@ block main
       // JSON API
 
       app.get('/api/posts', api.posts);
-      app.get('/api/post/:id', api.post);
 
-      app.post('/api/addPost', api.addPost);
-      app.post('/api/editPost', api.editPost);
-      app.post('/api/deletePost', api.deletePost);
+      app.get('/api/post/:id', api.post);
+      app.post('/api/post', api.addPost);
+      app.put('/api/post/:id', api.editPost);
+      app.delete('/api/post/:id', api.deletePost);
 
       /* ... */
     :markdown
