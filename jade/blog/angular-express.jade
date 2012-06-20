@@ -2,11 +2,14 @@ extends ../templates/main
 
 block main
   h2 Writing an AngularJS App with an Express + Node.js Backend
+  span(class='date') [2012.06.20]
   section
     :markdown
       AngularJS is like the missing [Batarang](http://en.wikipedia.org/wiki/Batarang) on your utility belt of web development awesomeness. It gives you two-way data binding that's both easy to use and fast, a powerful directive system that lets you extend HTML to do your bidding, plus a lot more. [Express](http://expressjs.com/) is an excellent webserver for Node.js that provides routing, middleware, and sessions. Incidentally, the two work quite well together!
 
       In this tutorial, I'm going to walk through writing a simple blog app with Angular and Express. For this, I'm assuming basic knowledge of Angular and Node. If you're new to Angular, I highly recommend that you check out the [AngularJS homepage](http://angularjs.org) first.
+
+      If you'd rather skip to the end, you can [grab the finished product from Github](https://github.com/btford/angular-express-seed), or [take a look at a live demo here](http://ang-exp-blog.briantford.com/).
 
       ### Anatomy of the App
 
@@ -379,9 +382,9 @@ block main
 
       /* ... */
     :markdown
-      The first route takes care of serving our main page that runs the angular app. The next route lets Angular load partials on demand.
+      The first route takes care of serving our main page that runs the angular app. The next route lets Angular load partials on demand. The following routes establish our JSON API, linking `http://yourapp.com/api/posts` to the `posts` route, `http://yourapp.com/api/addPost` to the `addPost` route, and so on.
 
-      The following routes establish our JSON API, linking `http://yourapp.com/api/posts` to the `posts` route, `http://yourapp.com/api/addPost` to the `addPost` route, and so on. Notice the `:id` on line 13: that's a parameter parsed out of the URL by Express. Why don't the bottom three routes have that parameter, then? The reason is because it's better to do a POST rather than a GET to avoid cross-site scripting. In general, when requesting information, use GET, but when invoking some action, use POST.
+      Notice the `:id` on line 13: that's a parameter parsed out of the URL by Express. Why don't the bottom three routes have that parameter, then? The reason is because it's better to do a POST rather than a GET to avoid cross-site scripting. In general, when requesting information, use GET, but when invoking some action, use POST.
 
       Start up the app as we did with the skeleton earlier:
 
@@ -392,9 +395,10 @@ block main
     :markdown
       ### Conclusion
 
-      Writing apps with AngularJS and Express is both fun and easy.
+      Writing apps with AngularJS and Express is both fun and easy. Both frameworks let you dive right into the business logic of your app without much boilerplate, so in just a few hundred lines, we're able to write a complete (albeit simple) app. Maintaining a clear distinction between client and server makes the app easier to maintain and test. In a future post, I'll cover how to test an app built on Angular and Express.
 
-      You can [grab the finished product from Github](https://github.com/btford/angular-express-seed), or [take a look at a live demo here](http://ang-exp-blog.briantford.com/).
+      Comments? [Let me know on Twitter](https://twitter.com/#!/briantford). Corrections? [Send me a pull request on Github](https://github.com/btford/briantford.com/blob/master/jade/blog/angular-express.jade).
+
   script(src='/js/libs/prettify.js')
   script
     prettyPrint();
