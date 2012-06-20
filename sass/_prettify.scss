@@ -3,18 +3,22 @@
 /* SPAN elements with the classes below are added by prettyprint. */
 .pln { color: #fff }  /* plain text */
 
+$monokai-pink: #F92672;
+$monokai-green: #A6E22E;
+$monokai-yellow: #E6DB74;
+
 @media screen {
-  .str { color: #E6DB74; }  /* string content */
+  .str { color: $monokai-yellow; }  /* string content */
   .kwd { color: #66D9EF; }  /* a keyword */
   .com { color: #75715E; }  /* a comment */
-  .typ { color: #A6E22E; }  /* a type name */
+  .typ { color: $monokai-green; }  /* a type name */
   .lit { color: #AE81FF }  /* a literal value */
   /* punctuation, lisp open bracket, lisp close bracket */
   /* .pun, .opn, .clo { color: #660 } */
-  .tag { color: #008 }  /* a markup tag name */
-  .atn { color: #606 }  /* a markup attribute name */
-  .atv { color: #080 }  /* a markup attribute value */
-  .dec, .var { color: #606 }  /* a declaration; a variable name */
+  .tag { color: $monokai-pink; }  /* a markup tag name */
+  .atn { color: $monokai-green; }  /* a markup attribute name */
+  .atv { color: $monokai-yellow; }  /* a markup attribute value */
+  /*.dec, .var { color: #606 }*/  /* a declaration; a variable name */
   .fun { color: red }  /* a function name */
 }
 
