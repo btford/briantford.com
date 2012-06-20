@@ -47,10 +47,7 @@ block main
         body
           h1 Jade - node template engine
           #container
-            if youAreUsingJade
-              p You are amazing
-            else
-              p Get on it!
+            p This is a paragraph
     :markdown
       Will compile to this HTML:
     :html
@@ -62,7 +59,7 @@ block main
         <body>
           <h1>Jade - node template engine</h1>
           <div id="container">
-            <p>You are amazing</p>
+            <p>This is a paragraph</p>
           </div>
         </body>
       </html>
