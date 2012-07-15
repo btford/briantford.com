@@ -99,11 +99,11 @@ block main
       div(ng-repeat='post in posts')
         h3 {{post.title}}
         div {{post.text}}
-        a(href='#/readPost/{{post.id}}') More
+        a(href='readPost/{{post.id}}') More
         |  - 
-        a(href='#/editPost/{{post.id}}') Edit
+        a(href='editPost/{{post.id}}') Edit
         |  - 
-        a(href='#/deletePost/{{post.id}}') Delete
+        a(href='deletePost/{{post.id}}') Delete
     :markdown
       This is a pretty straightforward view: it displays the number of posts at the top, then iterates through each post creating a div for each one, with links to read the full post, edit it, or delete it.
     :markdown
