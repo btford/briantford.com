@@ -90,7 +90,7 @@ window['PR_SHOULD_USE_CONTINUATION'] = true;
       "for,if,in,is,isnt,loop,new,no,not,null,of,off,on,or,return,super,then," +
       "true,try,unless,until,when,while,yes";
   var JSCRIPT_KEYWORDS = [COMMON_KEYWORDS,
-      "debugger,eval,export,function,get,null,set,undefined,var,with," +
+      "debugger,eval,export,function,null,undefined,var,with," +
       "Infinity,NaN"];
   var PERL_KEYWORDS = "caller,delete,die,do,dump,elsif,eval,exit,foreach,for," +
       "goto,if,import,last,local,my,next,no,our,print,package,redo,require," +
