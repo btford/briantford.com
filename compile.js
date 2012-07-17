@@ -12,6 +12,10 @@ jade.filters.jade = function (str) {
   return '<pre class="prettyprint linenums lang-html">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
 };
 
+jade.filters.css = function (str) {
+  return '<pre class="prettyprint linenums lang-css">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
+};
+
 jade.filters.html = function (str) {
   return '<pre class="prettyprint linenums lang-html">' + str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/\n/g, '\\n') + '</pre>';
 };
@@ -49,6 +53,8 @@ var compile = function (dir) {
     } catch (e) {
       //console.warn('cannot read: ' + __dirname + '/json/' + page + '.json');
     }
+
+    //locals.title = filename.substr(0, -5);
     
     var output = jadeFn(locals);
     var outFilePath = outBase + dir + '/' + page + '.html';
