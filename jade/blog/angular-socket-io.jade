@@ -224,9 +224,8 @@ block main
         return {
           on: function (eventName, callback) {
             socket.on(eventName, function () {  
-              var returnValue = callback.apply(socket, arguments);
+              callback.apply(socket, arguments);
               $rootScope.$apply();
-              return returnValue;
             });
           }
         };
@@ -238,7 +237,7 @@ block main
       ### Writing the server
 
       Open `routes/socket.js`. We need to define an object for maintaining the state of the server, so that user names are unique.
-      
+
     :javascript
       // Keep track of which names are used so that there are no duplicates
       var userNames = (function () {
