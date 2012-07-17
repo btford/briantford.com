@@ -214,11 +214,31 @@ block main
       }
 
     :markdown
-      Notice that at the end of each socket callback, we call `$scope.$apply`. `$scope.$apply` tells AngularJS that it needs to check the state of the application and update the templates if there was a change. Why don't we do this for methods attached to the `ng-click` directive, for instance? The reason is that `ng-click` internally calls `$scope.$apply`, so that you don't have to every time. If we wanted to avoid that call, you could do so by wrapping the socket object provided by Socket.IO to make this call for you.
+      Notice that at the end of each socket callback, we call `$scope.$apply`. `$scope.$apply` tells AngularJS that it needs to check the state of the application and update the templates if there was a change. Why don't we do this for methods attached to the `ng-click` directive, for instance? The reason is that `ng-click` internally calls `$scope.$apply`, so that you don't have to every time.
+
+      A best practice in AngularJS is avoiding calling `$apply` inside of a controller, and wrap APIs in the service to make that call instead. For the sake of bevity, I'm not going to go through wrapping the whole socket API to call `$apply`, but in the simple case, we would be able to remove `$apply` in the function provided as the second argument to `socket.on':
+
+    :javascript
+      app.factory('socket', function ($rootScope) {
+        var socket = io.connect();
+        return {
+          on: function (eventName, callback) {
+            socket.on(eventName, function () {  
+              var returnValue = callback.apply(socket, arguments);
+              $rootScope.$apply();
+              return returnValue;
+            });
+          }
+        };
+      });
+
+    :markdown
+      Again, I wouldn't use this as is. It doesn't handle some edge cases, and this doesn't wrap the entire Socket.IO API (that's left as an exercise for the reader ;P ). However, this should point you in the right direction. I may revisit writing a complete wrapper, but that's beyond the scope of this article.
 
       ### Writing the server
 
       Open `routes/socket.js`. We need to define an object for maintaining the state of the server, so that user names are unique.
+      
     :javascript
       // Keep track of which names are used so that there are no duplicates
       var userNames = (function () {
