@@ -99,23 +99,25 @@ block main
         return {
           on: function (eventName, callback) {
             socket.on(eventName, function () {  
-              callback.apply(socket, arguments);
-              $rootScope.$apply();
+              $rootScope.$apply(function () {
+                callback.apply(socket, arguments);
+              });
             });
           },
           emit: function (eventName, data, callback) {
             socket.emit(eventName, data, function () {
-              if (callback) {
-                callback.apply(socket, arguments);
-              }
-              $rootScope.$apply();
+              $rootScope.$apply(function () {
+                if (callback) {
+                  callback.apply(socket, arguments);
+                }
+              });
             })
           }
         };
       });
 
     :markdown
-      Notice that at the end of each socket callback, we call `$scope.$apply`. This tells AngularJS that it needs to check the state of the application and update the templates if there was a change. Internally, `$http` works in the same way; after some XHR returns, it calls `$scope.$apply`, so that AngularJS can update its views accordingly.
+      Notice that at we wrap each socket callback in `$scope.$apply`. This tells AngularJS that it needs to check the state of the application and update the templates if there was a change after running the callback passed to it. Internally, `$http` works in the same way; after some XHR returns, it calls `$scope.$apply`, so that AngularJS can update its views accordingly.
 
       Note that this service doesn't wrap the entire Socket.IO API (that's left as an exercise for the reader ;P ). However, it covers the methods used in this tutorial, and should point you in the right direction if you want to expand on it. I may revisit writing a complete wrapper, but that's beyond the scope of this article.
 
@@ -137,12 +139,10 @@ block main
         socket.on('init', function (data) {
           $scope.name = data.name;
           $scope.users = data.users;
-          $scope.$apply();
         });
 
         socket.on('send:message', function (message) {
           $scope.messages.push(message);
-          $scope.$apply();
         });
 
         socket.on('change:name', function (data) {
