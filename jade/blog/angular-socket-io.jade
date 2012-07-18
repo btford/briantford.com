@@ -91,7 +91,7 @@ block main
     :markdown
       ### Interacting with Socket.IO
       
-      Although Socket.IO exposes an `io` variable on the `window`, it's better to encapsulate it in AngularJS's [Dependency Injection system](http://docs.angularjs.org/guide/di). So, we'll start by writing a service to wrap the `socket` object returned by Socket.IO. This is awesome, because it will make it much easier to test our controller later. Open `public/js/services.js` and add:
+      Although Socket.IO exposes an `io` variable on the `window`, it's better to encapsulate it in AngularJS's [Dependency Injection system](http://docs.angularjs.org/guide/di). So, we'll start by writing a service to wrap the `socket` object returned by Socket.IO. This is awesome, because it will make it much easier to test our controller later. Open `public/js/services.js` and replace the contents with:
 
     :javascript
       app.factory('socket', function ($rootScope) {
@@ -99,16 +99,18 @@ block main
         return {
           on: function (eventName, callback) {
             socket.on(eventName, function () {  
+              var args = arguments;
               $rootScope.$apply(function () {
-                callback.apply(socket, arguments);
+                callback.apply(socket, args);
               });
             });
           },
           emit: function (eventName, data, callback) {
             socket.emit(eventName, data, function () {
+              var args = arguments;
               $rootScope.$apply(function () {
                 if (callback) {
-                  callback.apply(socket, arguments);
+                  callback.apply(socket, args);
                 }
               });
             })
@@ -225,6 +227,13 @@ block main
           $scope.message = '';
         };
       }
+
+    :markdown
+      This application will only feature one view, so we can remove the routing from `public/js/app.js` and simplify it to:
+
+    :javascript
+      // Declare app level module which depends on filters, and services
+      var app = angular.module('myApp', ['myApp.filters', 'myApp.directives']);
 
     :markdown
       ### Writing the server
