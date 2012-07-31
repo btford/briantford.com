@@ -78,7 +78,10 @@
     float: none;
   }
 
-    .right {
-      text-align: right;
+  .right {
+    text-align: right;
+  }
+  .no-print {
+    display: none;
   }
 }

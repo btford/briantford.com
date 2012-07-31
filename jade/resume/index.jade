@@ -1,16 +1,20 @@
 extends ../templates/main
 
 block main
-  p.grid_12
-    |  This is a work in progress. You might want to look at the 
-    a(href='/files/resume.2011.09.26.pdf') PDF
-    |  version instead.
+  .grid_12.no-print
+    :markdown
+      This is a work in progress. You might want to look at the [PDF](/files/resume.2011.09.26.pdf) version instead.
 
   h2.grid_12 Contact
-  .contact.grid_6 Email: #{email}
-  .contact.grid_6
+  .contact.grid_4
+    | Email: 
+    a(href='mailto:#{email}') #{email}
+  .contact.grid_4
     | Twitter: 
     a(href='http://twitter.com/#{twitter}') @#{twitter}
+  .contact.grid_4
+    | Github: 
+    a(href='https://github.com/#{github}') #{github}
 
   h2.grid_12 Education
   .grid_8
@@ -23,30 +27,29 @@ block main
     br
     |  GPA: #{education.gpa}
   h4.grid_12 Topics:
+
   - var numCols = 3;
   - var topics = education.topics;
   - for (var i = 0; i < numCols; i++) {
     .grid_4
-      - for (var j = 0; j < Math.ceil(topics.length / numCols) && (numCols*i + j < topics.length); j++) {
-        details
-          summary #{topics[numCols*i + j].name}
-          if topics[numCols*i + j].explain
-            p #{topics[numCols*i + j].explain}
-      - }
+      ul
+        - for (var j = 0; j < Math.ceil(topics.length / numCols) && (numCols*i + j < topics.length); j++) {
+          li #{topics[numCols*i + j]}
+        - }
   - }
 
   h4.grid_12 Languages:
-  - var numCols = 3;
   - var topics = languages;
+  - var numCols = 3;
+  - var numRows = Math.ceil(topics.length / numCols);
   - for (var i = 0; i < numCols; i++) {
     .grid_4
-      - for (var j = 0; j < Math.ceil(topics.length / numCols) && (numCols*i + j < topics.length); j++) {
-        details
-          summary #{topics[numCols*i + j].name}
-          if topics[numCols*i + j].explain
-            p #{topics[numCols*i + j].explain}
-      - }
-  - }
+      ul
+        - for (var j = 0; j < numRows; j++) {
+          - var topic = topics[numRows*i + j]
+          li #{topic.name}
+        - }
+    - }
 
   h2.grid_12 Experience
   .grid_6
@@ -54,62 +57,34 @@ block main
       | Google - AngularJS 
       sup
         a(href='//angularjs.org') link
-    |  Software Engineering Intern (May 2012 to August 2012)
-    p
-      | Wrote a debugger for AngularJS - a client-side JavaScript library.
+    |  Software Engineering Intern (May to August 2012)
+    p Wrote a debugger for AngularJS - a client-side JavaScript library.
   .grid_6
-    h3
-      abbr(title='University of Michigan') U of M
-      |   -  Interactive and Social Computing Group 
+    h3 University of Michigan - Interactive and Social Computing Group 
       sup
         a(href='//misc.si.umich.edu/') link
-    |  Web Application Developer (May 2011 to September 2011)
-    p
-      |  Wrote and maintained a Firefox extension and web application used in
-      |  research to gather data on reading habits of social news site users.
-      |  Worked on a Facebook application allowing users to share exercise
-      |  habits from pedometers and encourage each other to set and meet goals.
+    |  Web Application Developer (May to September 2011)
+    p Wrote and maintained a Firefox extension and web application used in research to gather data on reading habits of social news site users. Worked on a Facebook application allowing users to share exercise habits from pedometers and encourage each other to set and meet goals.
   .grid_6
     h3  Whirlpool Corporation
-    |  (May 2010 to August 2010)
-    |  Software Development Summer Intern
-    p
-      |  Worked in a software team developing using the Agile software
-      |  development techniques to maintain a GUI framework in C for an
-      |  embedded platform. Wrote unit tests, optimized components of the
-      |  framework, debugged issues.
+    |  Software Development Summer Intern (May to August 2010)
+    p Worked in a software team developing using the Agile software development techniques to maintain a GUI framework in C for an embedded platform. Wrote unit tests, optimized components of the framework, debugged issues.
   .grid_6
     h3
       |  Lakeshore Public High School 
       sup
         a(href='http://www.lakeshoreschools.k12.mi.us/high/') link
-    |  (August 2008 to May 2009)
     |  IT Assistant
-    p
-      |  Maintained the network, servers, computers and other technology
-      |  resources at a public school. Performed both hardware and software
-      |  maintenance on hundreds of computers.
+    |  (August 2008 to May 2009)
+    p Maintained the network, servers, computers and other technology resources at a public school. Performed both hardware and software maintenance on hundreds of computers.
   h2.grid_12 Skills
-  .grid_6
-    h3 Computer Programming
-    .indent
-      |  Experience in algorithmic design and implementation across a wide
-      |  variety of programming languages including assembly, C, C++, C#, Java,
-      |  JavaScript, PHP, and Python.
-  .grid_6
-    h3 Embedded Systems
-    .indent
-      |  Experience writing circuits, hardware drivers, and assembly language
-      |  instruction set architecture implementations in Verilog description
-      |  language. Used the Altera DE2 Development Board with Nios II microprocessor
-      |  and Cyclone II FPGA.
-  .grid_6
-    h3 Website Design
-    .indent
-      |  Experience in creating front-end design with HTML, CSS, JavaScript, and
-      |  Adobe Flash and programming webserver and database functionality using
-      |  PHP and MySQL. Experience with emerging HTML5 technologies, responsive design.
-  .grid_12
-    p References available upon request.
-    p
-      a(href='/files/resume.2011.09.26.pdf') Download my Resume (as a PDF)
+  for skill in skills
+    .grid_6
+      h3 #{skill.name}
+      .indent #{skill.explain}
+
+  .grid_12.no-print
+    :markdown
+      References available upon request
+
+      [Download my Resume (as a PDF)](/files/resume.2011.09.26.pdf)
