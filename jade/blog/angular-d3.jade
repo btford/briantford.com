@@ -148,6 +148,8 @@ block main
     :markdown
       In a larger application, it would probably be a good idea to move `reformatGithubResponse` into its own service so that it can be easily reused.
 
+      Another thing to make note of is that if you want to use Github's API, [you'll need to register it](https://github.com/settings/applications) if you're hosting it somewhere other than `localhost`.
+
       ### The Chart
 
       The chart we're going to make is based on the [stacked bar chart example](http://mbostock.github.com/d3/ex/stack.html). We want to bind some model on the scope to the data used by the chart. The chart also has the option of "stacked" and "grouped" layouts. We can also setup a binding to this option as well.
@@ -160,18 +162,17 @@ block main
         // ...
         return {
           restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
-          terminal: true, // sets priority appropriately for this directive
           scope: { // attributes bound to the scope of the directive
             val: '='
           },
           link: function (scope, element, attrs) {
-            // initialization, done once per my-directive tag in template or once ngRepeat directive stamps
-            // out a new copy of an DOM chunk that contains my-directive tag.
+            // initialization, done once per my-directive tag in template. If my-directive is within an
+            // ng-repeat-ed template then it will be called every time ngRepeat creates a new copy of the template.
 
             // ...
 
-            // whenever the bound 'val' changes, execute this 
-            scope.$watch('val', function (newVal, oldVal) {
+            // whenever the bound 'exp' expression changes, execute this 
+            scope.$watch('exp', function (newVal, oldVal) {
               // ...
             });
           }
@@ -194,7 +195,6 @@ block main
 
         return {
           restrict: 'E',
-          terminal: true,
           scope: {
             val: '=',
             grouped: '='
