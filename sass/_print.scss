@@ -14,18 +14,8 @@
     -ms-filter: none !important;
   }
   a, a:visited {
-    color: #444 !important;
-    //text-decoration: none;
+    color: #000 !important;
   }
-  /*
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }*/
-  /*
-  abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-  */
 
   /* Don't show links for images, or javascript/internal links */
   .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
@@ -63,15 +53,6 @@
     page-break-after: avoid;
   }
 
-  // No nav or footer
-  footer {
-    display: none;
-  }
-
-  nav li {
-    display: none;
-  }
-
   .grid_12 {
     clear: both;
     display: block;
@@ -81,7 +62,13 @@
   .right {
     text-align: right;
   }
-  .no-print {
+
+  @import "720";
+
+  .no-print,
+  h3 sup,
+  nav li,
+  footer {
     display: none;
   }
 }

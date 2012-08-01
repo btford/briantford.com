@@ -39,18 +39,18 @@ h1 {
 }
 
 h2, h3 {
-  margin-bottom: -.2em;
+  margin-bottom: -.1em;
   text-shadow: 2px 2px 1px $shadow-color;
 }
 
 h2 {
-  margin-top: 1em;
+  margin-top: .25em;
   //color: #B5D6B4;
 }
 
 h3 {
   font-size: 1.4em;
-  margin-top: 1em;
+  //margin-top: .5em;
   //color: #A09E70;
 }
 
@@ -167,14 +167,13 @@ th {
   margin-top: 10px;
 }
 
-.resume {
-  h2 {
-    border-bottom: solid #444 1px;
-  }
-}
-
 summary {
   cursor: pointer;
+}
+
+// I give up.
+.clearhack {
+  clear: both !important;
 }
 
 /* from google code prettify */
@@ -183,6 +182,12 @@ summary {
 /* From 960.gs */
 @import "gs";
 @import "mobile";
+
+// mobile sizes
+
+.grid_4 > ul {
+  margin: 0;
+}
 
 /* =============================================================================
  Primary styles (desktop specific)
@@ -236,7 +241,11 @@ summary {
   }
 
   section:after {
-      clear: both;
+    clear: both;
+  }
+
+  .grid_4 > ul {
+    margin: 1em 0;
   }
 }
 

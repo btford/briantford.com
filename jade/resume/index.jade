@@ -26,19 +26,20 @@ block main
     |  Graduation: #{education.graduation}
     br
     |  GPA: #{education.gpa}
-  h4.grid_12 Topics:
+  h3.grid_12 Topics
 
   - var numCols = 3;
   - var topics = education.topics;
+  - var numRows = Math.ceil(topics.length / numCols);
   - for (var i = 0; i < numCols; i++) {
     .grid_4
       ul
-        - for (var j = 0; j < Math.ceil(topics.length / numCols) && (numCols*i + j < topics.length); j++) {
-          li #{topics[numCols*i + j]}
+        - for (var j = 0; j < numRows && (numCols*i + j < topics.length); j++) {
+          li #{topics[numRows*i + j]}
         - }
   - }
 
-  h4.grid_12 Languages:
+  h3.grid_12 Languages
   - var topics = languages;
   - var numCols = 3;
   - var numRows = Math.ceil(topics.length / numCols);
@@ -57,15 +58,16 @@ block main
       | Google - AngularJS 
       sup
         a(href='//angularjs.org') link
-    |  Software Engineering Intern (May to August 2012)
-    p Wrote a debugger for AngularJS - a client-side JavaScript library.
+    |  Software Engineer Intern (May to August 2012)
+    :markdown
+      Wrote a Chrome extension to help visualize, profile, and debug web applications using AngularJS — an open source, client-side JavaScript framework. Also created the [Build with AngularJS](http://builtwith.angularjs.org/) community site, answered [mailing list](https://groups.google.com/forum/?fromgroups#!forum/angular) questions, fixed bugs, and improved the documentation.
   .grid_6
-    h3 University of Michigan - Interactive and Social Computing Group 
+    h3 Michigan Interactive and Social Computing 
       sup
         a(href='//misc.si.umich.edu/') link
     |  Web Application Developer (May to September 2011)
     p Wrote and maintained a Firefox extension and web application used in research to gather data on reading habits of social news site users. Worked on a Facebook application allowing users to share exercise habits from pedometers and encourage each other to set and meet goals.
-  .grid_6
+  .grid_6.clearhack
     h3  Whirlpool Corporation
     |  Software Development Summer Intern (May to August 2010)
     p Worked in a software team developing using the Agile software development techniques to maintain a GUI framework in C for an embedded platform. Wrote unit tests, optimized components of the framework, debugged issues.
