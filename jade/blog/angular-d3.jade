@@ -5,52 +5,51 @@ block main
   span(class='date') [2012.07.31]
   section
     :markdown
-      [D3.js](http://d3js.org/) is very cool. It works at the jQuery level as a wrapper around SVG with an expressive, functional API. There are a ton of [great examples of what can be done with D3.js](https://github.com/mbostock/d3/wiki/Gallery). By creating [AngularJS directives](http://docs.angularjs.org/guide/directive) that wrap D3.js, you can use the power of AngularJs's data binding to create apps with beautiful visualizations.
+      [D3.js](http://d3js.org/) is very cool. It works at the jQuery level as a wrapper around DOM and SVG with an expressive, functional API. There are a ton of [great examples of what can be done with D3.js](https://github.com/mbostock/d3/wiki/Gallery). By creating [AngularJS directives](http://docs.angularjs.org/guide/directive) that wrap D3.js, you can use the power of AngularJS's data binding to create apps with beautiful visualizations.
 
-      I'm going to build an app that uses the [Github API](http://developer.github.com/v3/) to allow users to <span class="nope">figure out which of their coworkers have been slacking off</span> analyze commit data for a given project. I was inspired by [this very slick app](http://daha.github.com/angularJS-github-contributors/#/) by [David Haglund](https://github.com/daha), which is also written with AngularJS.
+      We're going to build an app that uses the [Github API](http://developer.github.com/v3/) to allow users to <span class="nope">figure out which of their coworkers have been slacking off</span> analyze commit data for a given project. I was inspired by [this very slick app](http://daha.github.com/angularJS-github-contributors/#/) by [David Haglund](https://github.com/daha), which is also written with AngularJS.
 
-      [The source for the finished app](https://github.com/btford/angular-d3-demo) is available on Github.
+      You can [see a demo of the app here](http://btford.github.com/angular-d3-demo/), and [the source for the finished app](https://github.com/btford/angular-d3-demo) is available on Github.
 
       ### Getting Started
-        This is going to be a very simple application, so I'm just going to write the entire example in a single HTML file in the same style as the D3.js examples. We'll start off with this boilerplate:
+        This is going to be a very simple application, so we're going to write all of the JavaScript in a single file, and include that file in our HTML. We'll start off with this boilerplate HTML file:
     :html
       <!DOCTYPE html>
-      <html ng-app="myApp">
+      <html ng-app="d3DemoApp">
         <head>
           <meta charset="utf-8">
           <title>AngularJS + D3.js</title>
           <script src="http://d3js.org/d3.v2.js"></script>
           <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.js"></script>
-          <script>
-            // create module for custom directives
-            var app = angular.module('myApp', []);
-
-            // register d3 as a service so we can inject it
-            app.factory('d3', function () {
-              return d3;
-            });
-
-            // controller business logic
-            function AppCtrl ($scope, $http) {
-
-            }
-          </script>
+          <script src="app.js"></script>
         </head>
         <body ng-ctrl="AppCtrl">
           <!-- Here's where our visualization will go -->
-          <visualization val="data"></visualization>
+          <gh-visualization val="data"></gh-visualization>
         </body>
       </html>
     :markdown
-      There are a few things to note about the boilerplate. Although `d3` is a global variable, we're going to register it with AngularJS's dependency injection system anyway so that the dependencies are clearly stated, and so the application is more readily testable. The `<visualization>` tag is for a directive that we'll write later.
+      And then create `app.js` and add this to the file:
+    :javascript
+      // create module for custom directives
+      var d3DemoApp = angular.module('d3DemoApp', []);
+
+      // controller business logic
+      d3DemoApp.controller('AppCtrl', function AppCtrl ($scope) {
+
+      });
+    :markdown
+      There are a few things to note about the boilerplate. The `<gh-visualization>` tag is for a directive that we'll write later. When we register the directive, we'll use the normalized form: `ghVisualization`.
 
       ### Getting the Data from Github
 
       We'll start by adding a controller that makes requests to the Github API. Most of the code in the controller is for reformating the response from Github as a two-dimensional array: the first dimension is the author, the second dimension is the number of commits for that author for each day.
 
     :javascript
-      app.controller('AppCtrl', function ($scope, $http) {
+      // controller business logic
+      d3DemoApp.controller('AppCtrl', function AppCtrl ($scope, $http) {
 
+        // initialize the model
         $scope.user = 'angular';
         $scope.repo = 'angular.js';
 
@@ -62,7 +61,7 @@ block main
         // helper for reformatting the Github API response into a form we can pass to D3
         var reformatGithubResponse = function (data) {
           // sort the data by author date (rather than commit date)
-          data = data.sort(function (a, b) {
+          data.sort(function (a, b) {
             if (new Date(a.commit.author.date) > new Date(b.commit.author.date)) {
               return -1;
             } else {
@@ -104,7 +103,7 @@ block main
           }
           data.forEach(function (datum) {
             var date = new Date(datum.commit.author.date);
-            var curDay = Math.floor((date - date0)/(1000 * 3600 * 24));
+            var curDay = Math.floor((date - date0) / 86400000);
             formattedData[authorMap[datum.commit.author.name]][curDay].y += 1;
             formattedData[0][curDay].date = humanReadableDate(date);
           });
@@ -151,7 +150,7 @@ block main
 
       ### The Chart
 
-      The chart I'm going to make is based on the [stacked bar chart example](http://mbostock.github.com/d3/ex/stack.html). We want to bind some model on the scope to the data used by the chart. The chart also has the option of "stacked" and "grouped" layouts. We can also setup a binding to this option as well.
+      The chart we're going to make is based on the [stacked bar chart example](http://mbostock.github.com/d3/ex/stack.html). We want to bind some model on the scope to the data used by the chart. The chart also has the option of "stacked" and "grouped" layouts. We can also setup a binding to this option as well.
 
       In order to write this, there are a few things to understand about directives. Here is a quick rundown of the way we're going to structure the directive:
 
@@ -160,13 +159,15 @@ block main
         // define constants and helpers used for the directive
         // ...
         return {
-          restrict: 'E', // the directive is based on the element tag name
+          restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
           terminal: true, // sets priority appropriately for this directive
           scope: { // attributes bound to the scope of the directive
-            val: '=val'
+            val: '='
           },
           link: function (scope, element, attrs) {
-            // initialization, done once when the directive is instantiated
+            // initialization, done once per my-directive tag in template or once ngRepeat directive stamps
+            // out a new copy of an DOM chunk that contains my-directive tag.
+
             // ...
 
             // whenever the bound 'val' changes, execute this 
@@ -180,23 +181,23 @@ block main
     :markdown
       There's a lot more to directives than what I just mentioned, so I recommend [reading the documentation](http://docs.angularjs.org/guide/directive) on the AngularJS site to learn more.
       
-      So using the example from D3, and breaking up the code from that example, I am able to write this directive:
+      So using the example from D3, and breaking up the code from that example, we are able to write this directive:
 
     :javascript
-      app.directive('visualization', function (d3) {
+      d3DemoApp.directive('ghVisualization', function () {
 
         // constants
         var margin = 20,
           width = 960,
           height = 500 - .5 - margin,
-          color = d3.interpolateRgb("#F77", "#77F");
+          color = d3.interpolateRgb("#f77", "#77f");
 
         return {
           restrict: 'E',
           terminal: true,
           scope: {
-            val: '=val',
-            grouped: '=grouped'
+            val: '=',
+            grouped: '='
           },
           link: function (scope, element, attrs) {
 
@@ -370,6 +371,7 @@ block main
 
               // setup a watch on 'grouped' to switch between views
               scope.$watch('grouped', function (newVal, oldVal) {
+                // ignore first call which happens before we even have data from the Github API
                 if (newVal === oldVal) {
                   return;
                 }
@@ -388,28 +390,30 @@ block main
 
       ### Finishing Touches
 
-      Let's add some style to the `<head>`:
-    :html
-      <style>
-        body {
-          font: 14px Helvetica Neue;
-          text-rendering: optimizeLegibility;
-          margin-top: 1em;
-          overflow-y: scroll;
-        }
-        .label {
-          font-size: .65em;
-        }
-        body {
-          width: 960px;
-          margin: auto;
-        }
-        h1 {
-          font-size: 36px;
-          font-weight: 300;
-          margin-bottom: .3em;
-        }
-      </style>
+      Let's add some styling to the app. Create a CSS file with the following contents, and add it to the head of the HTML:
+    :css
+      body {
+        font: 14px Helvetica Neue;
+        text-rendering: optimizeLegibility;
+        margin-top: 1em;
+        overflow-y: scroll;
+      }
+      .label {
+        font-size: .65em;
+      }
+      body {
+        width: 960px;
+        margin: auto;
+      }
+      h1 {
+        font-size: 36px;
+        font-weight: 300;
+        margin-bottom: .3em;
+      }
+      .error {
+        color: red;
+      }
+
 
     :markdown
       We still need some controls to handle choosing which repository to look at. It would also be nice to have an error message displayed when a user attempts to access a repository that doesn't exist.
@@ -418,18 +422,19 @@ block main
       <body ng-controller="AppCtrl">
         <h1>Github Commit Graph</h1>
 
-        <div>
-          User: <input ng-change="getCommitData()" ng-model="user"></input>
-          Repo: <input ng-change="getCommitData()" ng-model="repo"></input>
+        <form ng-submit="getCommitData()">
+          User: <input ng-model="user"></input>
+          Repo: <input ng-model="repo"></input>
+          <input type="submit" value="Get Data">
           Grouped <input type="checkbox" ng-model="grouped">
-        </div>
+        </form>
         
-        <p>{{error}}</p>
-        <visualization val="data" grouped="grouped"></visualization>
+        <p class="error">{{error}}</p>
+        <gh-visualization val="data" grouped="grouped"></gh-visualization>
       </body>
 
     :markdown
-      So whenever the user changes either the user or repository, the visualization will update. For a larger application, it may be wise to only make the GitHub calls when a user clicks a submit button to reduce the number of async calls to the server. When the call to the Github API resolves, the model updates, and because our visualization directive is listening to the `data` model on the scope, it knows to update itself. Similarly, we listen to `grouped` on the scope and run the animated transition accordingly.
+      So whenever the user presses "enter" or submits the form, the controller makes a request for the data on the Github API. When the call to Github resolves, the model updates, and because our visualization directive is listening to the `data` model on the scope, it knows to update itself. Similarly, we listen to `grouped` on the scope and run the animated transition accordingly.
 
       ### Conclusion
 
