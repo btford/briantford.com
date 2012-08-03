@@ -1,28 +1,24 @@
 extends ../templates/main
 
 block main
-  .grid_12.no-print
-    :markdown
-      This is a work in progress. You might want to look at the [PDF](/files/resume.2011.09.26.pdf) version instead.
-
-  h2.grid_12 Contact
-  .contact.grid_4
+  h2.grid_12.no-print Contact
+  .grid_4.contact_1
     | Email: 
     a(href='mailto:#{email}') #{email}
-  .contact.grid_4
+  .grid_4.contact_2
     | Twitter: 
     a(href='http://twitter.com/#{twitter}') @#{twitter}
-  .contact.grid_4
+  .grid_4.contact_3
     | Github: 
     a(href='https://github.com/#{github}') #{github}
 
   h2.grid_12 Education
-  .grid_8
+  .grid_9
     |  #{education.university}
     br
     |  #{education.degree}
     br
-  .grid_4.right
+  .grid_3.right
     |  Graduation: #{education.graduation}
     br
     |  GPA: #{education.gpa}
@@ -41,10 +37,10 @@ block main
 
   h3.grid_12 Languages
   - var topics = languages;
-  - var numCols = 3;
+  - var numCols = 4;
   - var numRows = Math.ceil(topics.length / numCols);
   - for (var i = 0; i < numCols; i++) {
-    .grid_4
+    .grid_3
       ul
         - for (var j = 0; j < numRows; j++) {
           - var topic = topics[numRows*i + j]
@@ -53,7 +49,7 @@ block main
     - }
 
   h2.grid_12 Experience
-  .grid_6
+  .grid_6.res-exp
     h3
       | Google - AngularJS 
       sup
@@ -61,17 +57,17 @@ block main
     |  Software Engineer Intern (May to August 2012)
     :markdown
       Wrote a Chrome extension to help visualize, profile, and debug web applications using AngularJS — an open source, client-side JavaScript framework. Also created the [Build with AngularJS](http://builtwith.angularjs.org/) community site, answered [mailing list](https://groups.google.com/forum/?fromgroups#!forum/angular) questions, fixed bugs, and improved the documentation.
-  .grid_6
+  .grid_6.res-exp
     h3 Michigan Interactive and Social Computing 
       sup
         a(href='//misc.si.umich.edu/') link
     |  Web Application Developer (May to September 2011)
     p Wrote and maintained a Firefox extension and web application used in research to gather data on reading habits of social news site users. Worked on a Facebook application allowing users to share exercise habits from pedometers and encourage each other to set and meet goals.
-  .grid_6.clearhack
+  .grid_6.clearhack.res-exp
     h3  Whirlpool Corporation
     |  Software Development Summer Intern (May to August 2010)
     p Worked in a software team developing using the Agile software development techniques to maintain a GUI framework in C for an embedded platform. Wrote unit tests, optimized components of the framework, debugged issues.
-  .grid_6
+  .grid_6.res-exp
     h3
       |  Lakeshore Public High School 
       sup
@@ -81,7 +77,7 @@ block main
     p Maintained the network, servers, computers and other technology resources at a public school. Performed both hardware and software maintenance on hundreds of computers.
   h2.grid_12 Skills
   for skill in skills
-    .grid_6
+    .grid_6.res-exp
       h3 #{skill.name}
       .indent #{skill.explain}
 

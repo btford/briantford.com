@@ -185,7 +185,8 @@ summary {
 
 // mobile sizes
 
-.grid_4 > ul {
+.grid_4 > ul,
+.grid_3 > ul {
   margin: 0;
 }
 
@@ -244,8 +245,9 @@ summary {
     clear: both;
   }
 
-  .grid_4 > ul {
-    margin: 1em 0;
+  .grid_4 > ul,
+  .grid_3 > ul {
+    margin: .5em 0;
   }
 }
 

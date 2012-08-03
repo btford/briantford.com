@@ -43,8 +43,14 @@
       "explain": "JavaScript is my favorite language. I use it to write web apps both on the client and server (node.js)"
     },
     {
+      "name": "PHP"
+    },
+    {
       "name": "Python",
       "explain": "I took a course on natural language, and used the NLTK library."
+    },
+    {
+      "name": "SQL"
     }
   ],
   "skills": [
