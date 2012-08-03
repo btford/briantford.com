@@ -190,6 +190,7 @@ summary {
   margin: 0;
 }
 
+
 /* =============================================================================
  Primary styles (desktop specific)
  Author: Brian Ford
@@ -293,6 +294,11 @@ summary {
 // Semantic Helper Classes
 // -----------------------
 @import "helper";
+
+// hax
+.contact_4 {
+  display: none;
+}
 
 // Print Styles
 // ------------

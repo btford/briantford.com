@@ -82,16 +82,21 @@
 
   .contact_1,
   .contact_2,
-  .contact_3 {
+  .contact_3,
+  .contact_4 {
     position: absolute;
     right: 0;
-    top: .6em;
+    top: .4em;
   }
   .contact_2 {
-    top: 1.7em;
+    top: 1.5em;
   }
   .contact_3 {
-    top: 2.8em;
+    top: 2.6em;
+  }
+  .contact_4 {
+    display: block;
+    top: 3.7em;
   }
 
   h2 {
