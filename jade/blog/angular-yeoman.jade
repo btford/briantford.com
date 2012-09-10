@@ -7,7 +7,7 @@ block main
     :markdown
       [Yeoman](http://yeoman.io/) is a new tool for simplifying your client-side development workflow. It supports a variety of different tools and frameworks, but I'm going to focus specifically on how it helps write AngularJS applications.
 
-      Out of the box, Yeoman includes some excellent features for building AngularJS apps. The best of these features is its generators. Generators allow you to quickly create new controllers, directives, services, unit tests, and even entire applications. It gives you the speed of boilerplates/seeds but with added flexibility. Let's look at an example:
+      Out of the box, Yeoman includes some excellent features for building AngularJS apps. The best of these features is its generators. Generators allow you to quickly create new controllers, directives, services, unit tests, and even entire applications. It gives you the speed of boilerplates/seeds but with added flexibility. Let's look at an example. Yeoman infers the name of your project based on the name of its parent directory, so let's make a new directory and try it out:
 
           mkdir yeoman-test
           cd yeoman-test
@@ -86,7 +86,7 @@ block main
           </body>
       </html>
     :markdown
-      Based on the HTML5 Boilerplate, this index file also includes an `ngView` and the script files needed by our application. Notice that the script file is named `yeoman-test.js`. This is because Yeoman infers the name of your project based on the name of its parent directory.
+      Based on the HTML5 Boilerplate, this index file also includes an `ngView` and the script files needed by our application. Notice that the script file is named `yeoman-test.js`. This is because, as mentioned before, Yeoman infers the name of your project based on the name of its parent directory.
 
       Let's take a look at `yeoman-test.js`:
     :javascript
@@ -209,9 +209,17 @@ block main
 
           npm install -g testacular
 
-      You can run the test as you usually would with Testacular or through Yeoman like this:
+      You can run the test as you usually would with Testacular, like this:
+
+          testacular start
+
+      This will run Testacular in "watch mode" and have it automatically run the tests whenever you update the files. Alternatively, you can do a single run through Yeoman like this:
 
           yeoman test
+
+      which is just an alias for:
+
+          testacular start --single-run          
 
       All of the typical pains of setting up the test runner and configuring it are taken care of by Yeoman. Testacular makes cross browser testing a breeze (just add additional browsers to your config file), and AngularJS gives you a clear seperation of concerns so you can write concise, focused tests. With these great tools, there's really no excuse not to unit test your code.
 
@@ -221,7 +229,7 @@ block main
 
           yeoman build
 
-      Yeoman will automatically concatinate the scripts between `<!-- build:js scripts/scripts.js -->` and `<!-- endbuild -->`, version the files, and update the references to the versioned files in your html. Automatic minification is not yet implemented, but it's coming soon!
+      Yeoman will automatically concatinate the scripts between `<!-- build:js scripts/scripts.js -->` and `<!-- endbuild -->`, version the file names, and update the references to the versioned files in your html. Automatic minification is not yet implemented, but it's coming soon!
 
       Yeoman can also be configured to optimize images and do whatever else your application needs to be blazing fast. The build system is based on [Grunt](http://gruntjs.com/), which has many additional plugins and is highly extensible. 
 
