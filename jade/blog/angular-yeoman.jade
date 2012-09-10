@@ -221,11 +221,13 @@ block main
 
           yeoman build
 
-      Yeoman will automatically concatinate the scripts between `<!-- build:js scripts/scripts.js -->` and `<!-- endbuild -->`, version the files, and update the references to the versioned files in your html.
+      Yeoman will automatically concatinate the scripts between `<!-- build:js scripts/scripts.js -->` and `<!-- endbuild -->`, version the files, and update the references to the versioned files in your html. Automatic minification is not yet implemented, but it's coming soon!
+
+      Yeoman can also be configured to optimize images and do whatever else your application needs to be blazing fast. The build system is based on [Grunt](http://gruntjs.com/), which has many additional plugins and is highly extensible. 
 
       ### Conclusion
 
-      There's a lot more to Yeoman, so if you're interested, you should definitely [check out the documentation](https://github.com/yeoman/yeoman#welcome-friend). Have ideas to improve the Yeoman AngularJS tools? Check out the [Yeoman Generator Github repo](https://github.com/yeoman/generators/) and get hacking!
+      There's a lot more to Yeoman, so if you're interested, you should definitely [check out the documentation](https://github.com/yeoman/yeoman#welcome-friend). Have ideas to improve the Yeoman AngularJS code generators? Check out the [Yeoman Generator Github repo](https://github.com/yeoman/generators/) and get hacking!
 
   script(src='/js/libs/prettify.js')
   script
