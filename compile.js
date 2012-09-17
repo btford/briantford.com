@@ -46,12 +46,13 @@ var compile = function (dir) {
       filename: filename
     });
 
-    var locals = {};
-    
+    var locals;
+  
     try {
-      locals = JSON.parse(fs.readFileSync(jadeBase + dir + '/' + page + '.json'));
-    } catch (e) {
-      //console.warn('cannot read: ' + __dirname + '/json/' + page + '.json');
+      locals = {json: JSON.parse(fs.readFileSync('json/' + page + '.json')) };
+    } catch (e) {} //idc lol
+    if (!locals) {
+      locals = {};
     }
 
     //locals.title = filename.substr(0, -5);

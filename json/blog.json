@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Using Yeoman with AngularJS",
+    "date": "Mon, Sep 10 2012 19:02:13 -400",
+    "link": "http://briantford.com/blog/angular-yeoman.html"
+  }, {
+    "title": "Using the D3.js Visualization Library with AngularJS",
+    "date": "Tue, July 31 2012 13:13:37 -0700",
+    "link": "http://briantford.com/blog/angular-d3.html",
+  }, {
+    "title": "Writing an AngularJS App with Socket.io",
+    "date": "Tue, Jul 17 2012 16:49:56 -0700",
+    "link": "http://briantford.com/blog/angular-socket-io.html",
+    "feat": {
+      "on": "HTML5 Rocks",
+      "link": "http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/"
+    }
+  }, {
+    "title": "Stop Whining About New JS Frameworks",
+    "date": "Sat, Jul 14 2012 17:35:24 -0700",
+    "link": "http://briantford.com/blog/too-many-frameworks-qq.html"
+  }, {
+    "title": "Introducing the AngularJS Batarang",
+    "date": "Mon, 02 Jul 2012 21:33:00 +0000",
+    "link": "http://blog.angularjs.org/2012/07/introducing-angularjs-batarang.html"
+  }, {
+    "title": "Writing an AngularJS App with an Express + Node.js Backend",
+    "date": "Thu, Jun 21 2012 16:25:50 -0700",
+    "link": "angular-express.html",
+    "feat": {
+      "in": "Appliness Issue #4",
+      "link": "http://appliness.com/code/Appliness-July-pdf.pdf"
+    }
+  }
+]

@@ -3,6 +3,9 @@ extends ../templates/main
 block main
   h2 Blog
   section
+    for item in json
+      p
+        .date [#{item.date}]
     :markdown
       <span class="date">[2012.09.10]</span> [Using Yeoman with AngularJS](angular-yeoman.html)
 
@@ -15,3 +18,4 @@ block main
       <span class="date">[2012.07.02]</span> [Introducing the AngularJS Batarang](http://blog.angularjs.org/2012/07/introducing-angularjs-batarang.html)
 
       <span class="date">[2012.06.20]</span> [Writing an AngularJS App with an Express + Node.js Backend](angular-express.html) | Featured in [Appliness Issue #4](http://appliness.com/code/Appliness-July-pdf.pdf)
+2
