@@ -3,19 +3,15 @@ extends ../templates/main
 block main
   h2 Blog
   section
-    for item in json
+    for item in posts
       p
-        .date [#{item.date}]
-    :markdown
-      <span class="date">[2012.09.10]</span> [Using Yeoman with AngularJS](angular-yeoman.html)
-
-      <span class="date">[2012.07.31]</span> [Using the D3.js Visualization Library with AngularJS](angular-d3.html)
-
-      <span class="date">[2012.07.17]</span> [Writing an AngularJS App with Socket.io](angular-socket-io.html) | Featured on [HTML5 Rocks](http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/)
-
-      <span class="date">[2012.07.14]</span> [Stop Whining About New JS Frameworks](too-many-frameworks-qq.html)
-
-      <span class="date">[2012.07.02]</span> [Introducing the AngularJS Batarang](http://blog.angularjs.org/2012/07/introducing-angularjs-batarang.html)
-
-      <span class="date">[2012.06.20]</span> [Writing an AngularJS App with an Express + Node.js Backend](angular-express.html) | Featured in [Appliness Issue #4](http://appliness.com/code/Appliness-July-pdf.pdf)
-2
+        span.date [#{item.date}] 
+        a(href='#{item.link}') #{item.title}
+        if item.feat
+          |  | Featured
+          if item.feat.on
+            |  on  
+            a(href='#{item.feat.link}') #{item.feat.on}
+          if item.feat.in
+            |  in  
+            a(href='#{item.feat.link}') #{item.feat.in}

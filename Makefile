@@ -30,12 +30,15 @@ STATIC_OUT_DIR = $(OUT_DIR)
 JS_CONCAT_FILES = $(shell find $(JS_IN_DIR)/*.js)
 
 .PHONY: all
-all: html css js images
+all: html css js images rss
 
 all-compress: css-compress html-compress js-compress images
 
 html:
 	node compile.js
+
+rss:
+	node rss.js
 
 misc:
 	rsync -vaz $(RSYNC_EXCLUDES) $(STATIC_IN_DIR)/ $(STATIC_OUT_DIR)

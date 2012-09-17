@@ -2,7 +2,8 @@
 
 var fs = require('fs'),
   jade = require('jade'),
-  _ = require('underscore');
+  _ = require('underscore'),
+  moment = require('moment');
 
 jade.filters.javascript = function (str) {
   return '<pre class="prettyprint linenums lang-js">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
@@ -49,11 +50,15 @@ var compile = function (dir) {
     var locals;
   
     try {
-      locals = {json: JSON.parse(fs.readFileSync('json/' + page + '.json')) };
+      locals = JSON.parse(fs.readFileSync(jadeBase + dir + '/' + page + '.json'));
     } catch (e) {} //idc lol
     if (!locals) {
       locals = {};
     }
+    locals.posts = JSON.parse(fs.readFileSync('json/blog.json'));
+    locals.posts.forEach(function (post) {
+      post.date = moment(post.date).format('YYYY.MM.DD');
+    });
 
     //locals.title = filename.substr(0, -5);
     
