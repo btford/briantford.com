@@ -386,6 +386,12 @@ block main
 
       Comments? [Tweet](https://twitter.com/#!/briantford) or [email](sendto:btford@umich.edu) me. Corrections? [Send me a pull request on Github](https://github.com/btford/briantford.com/blob/master/jade/blog/angular-express.jade).
 
+      ### <a id="questions"></a>Questions
+
+      <span class="date">[2012.09.17]</span> - [@corydeppen](https://twitter.com/corydeppen) asks: "Did you use $http instead of [$resource](http://docs.angularjs.org/api/ngResource.$resource) for a specific reason? Are there cases where you would recommend one over the other?"
+
+      I certainly could have used $resource, but I chose to use $http in the tutorial because I thought it was the simpler of the two and would better help illustrate how all of the parts connected. In choosing which to use in your own app, I think it kind of depends your needs. If you are serializing/deserializing objects into/from a data store and doing CRUD-y things, $resource would likely be the way to go. If you have a more action/intent based API scheme, you might want to use $http instead. And you can certainly use both within the same app if it makes sense to you!
+
   script(src='/js/libs/prettify.js')
   script
     prettyPrint();
