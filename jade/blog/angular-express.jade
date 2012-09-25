@@ -369,7 +369,7 @@ block main
     :markdown
       The first route takes care of serving our main page that runs the angular app. The next route lets Angular load partials on demand. The following routes establish our JSON API, linking `http://yourapp.com/api/posts` to the `posts` route, `http://yourapp.com/api/addPost` to the `addPost` route, and so on.
 
-      Notice the `:id` on line 13: that's a parameter parsed out of the URL by Express. Why don't the bottom three routes have that parameter, then? The reason is because it's better to do a POST rather than a GET to avoid cross-site scripting. In general, when requesting information, use GET, but when invoking some action, use POST.
+      Notice the `:id` on lines 12, 14, and 15: that's a parameter parsed out of the URL by Express. Why doesn't `app.post('/api/post', api.addPost);` on line 13 have that parameter, then? The reason is because it's better to do a POST rather than a GET to avoid cross-site scripting. In general, when requesting information, use GET, but when invoking some action, use POST.
 
       Start up the app as we did with the skeleton earlier:
 
