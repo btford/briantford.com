@@ -1,12 +1,24 @@
 [
   {
+    "title": "Yeoman Hacking 101 Screencast",
+    "date": "Tue, Nov 6 2012 22:03:00 -0500",
+    "link": "http://www.youtube.com/watch?v=lqe1d44r5FY&feature=plcp"
+  }, {
+    "title": "AngularJS + Yeoman Talk @ AngularJS Meetup MTV",
+    "date": "Tue, Oct 9 2012 19:00:00 -0700",
+    "link": "http://www.youtube.com/watch?v=XOmwZopzcTA"
+  }, {
     "title": "Semicolons",
     "date": "Tue, Sep 25 2012 14:35:00 -400",
     "link": "http://briantford.com/blog/go-semicolons.html"
   }, {
     "title": "Using Yeoman with AngularJS",
     "date": "Mon, Sep 10 2012 19:02:13 -400",
-    "link": "http://briantford.com/blog/angular-yeoman.html"
+    "link": "http://briantford.com/blog/angular-yeoman.html",
+    "feat": {
+      "in": "Appliness Issue #8",
+      "link": "http://appliness.com/code/appliness%208%20November.pdf"
+    }
   }, {
     "title": "Using the D3.js Visualization Library with AngularJS",
     "date": "Tue, July 31 2012 13:13:37 -0700",
