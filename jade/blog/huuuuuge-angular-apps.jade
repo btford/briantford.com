@@ -1,0 +1,132 @@
+# Building Huuuuuge Apps with AngularJS
+
+## Motivation
+The AngularJS documentation is great for getting started and the nitty gritty. However, it doesn't really tell you how to put everything together, and how to organize your app as it grows to tens or hundreds of lines of code. I've collected here some of my observations and best practices for how to manage your sprawling application.
+
+##Organization
+Probably the biggest question with large apps is where to put all of that code. Files, directories, modules
+
+### Directories
+This is the typical folder layout that I recommend.
+
+    app
+    ├── index.html
+    ├── scripts
+    │   ├── controllers
+    │   │   └── main.js
+    │   ├── directives
+    │   │   └── myDirective.js
+    │   ├── filters
+    │   │   └── myFilter.js
+    │   ├── services
+    │   │   └── myService.js
+    │   ├── vendor
+    │   │   ├── angular.js
+    │   │   ├── angular.min.js
+    │   │   ├── es5-shim.min.js
+    │   │   └── json3.min.js
+    │   └── app.js
+    ├── styles
+    │   └── main.css
+    └── views
+        └── main.html
+    
+
+As you add more files, it might make sense to create subdirectories to further organize controllers and services. For instance, I often find myself making a `models` directory inside of `services`. My rule of thumb is to only further sort files into directories if there is some rational hierarchy by which you can organize the files.
+
+### Files
+Each file should have one "thing" in it, where a "thing" is a controller, 
+
+I would make an exception for inter-related (TODO: word) directives. For example, if you have an EXAMPLE directive that requires EXAMPLE to be a parent (TODO: link to example), those should be in the same file.
+
+### Modules
+Define all modules in `app.js`:
+```javascript
+angular.module('yourAppName', ['yourAppDep']);
+angular.module('yourAppDep');
+```
+
+Use modules like this:
+```javascript
+angular.module('yourAppDep').controller('MyCtrl', function () {
+  // ...
+});
+```
+
+Although we (the AngularJS team) have discussed being able to lazy-load at the module granularity, there are more important things on [the roadmap for v1.1](http://blog.angularjs.org/2012/07/angularjs-10-12-roadmap.html).
+
+(TODO: G+ thread)
+
+### Dependencies
+In general, services, controllers, directives, etc. should have as few dependencies as possible. This is good software development practice in general, but it's worth mentioning.
+
+Controllers should not be synthesizing different levels of abstraction.
+
+### Directives
+Use an app-specific prefix directives.
+
+```javascript
+angular.module('yourAppDep').controller('MyCtrl', function () {
+  // ...
+});
+```
+
+You might worry about directive names becoming too long, but that's rarely the case, and TODO.
+
+### Services
+```javascript
+angular.module('yourAppDep').controller('MyCtrl', function () {
+  // ...
+});
+```
+
+### Models
+AngularJS is unique among JavaScript frameworks in that it gives you complete control over your model layer.
+
+[Underscore.js](http://documentcloud.github.com/underscore/) is a great utility library.
+
+### Controllers
+Controller names should start with a capital letter and end with "Ctrl" by convention.
+
+```javascript
+angular.module('yourAppDep').controller('MyCtrl', function () {
+  // ...
+});
+```
+
+Remember that controllers can be reused.
+
+## Performance
+AngularJS apps are generally very, very fast. Most apps really don't need any sort of special optimization, so unless you're experiencing poor performance, Your time is better spent improving your app in other ways. For these exceptional cases Angular provides some excellent ways to address performance issues.
+
+### Optimizing the Digest Cycle
+AngularJS uses dirty checking in what is called a digest cycle (TODO: link to conceptual overview).
+
+Sometimes, you want to be able to avoid a digest cycle. One common situation in real-time WebSocket'ed apps is that you don't always want to digest when you receive a message. Consider a real-time game where messages are sent from the server 30 or more times per second. One great way to deal with this is to "throttle" the requests so a digest only happens a few times a second. [Underscore.js](http://documentcloud.github.com/underscore/#throttle) provides such a function.
+
+Other times, you know an incoming change will only affect certain scopes, and might want to just dirty check those. For those cases, you can call [`$scope.$digest`](http://docs.angularjs.org/api/ng.$rootScope.Scope#$digest) instead of `$scope.$apply`. `$digest` will only run the digest cycle on the scope it's called on, and all of that scope's children.
+
+### Filters
+Filters are applied at least twice during every digest cycle. For that reason, it's best if they are lightweight.
+
+## Tools
+I've been doing a lot of work on Yeoman to try to consolidate best practices and good project structure, and make what little boilerplate AngularJS has automagically generated. I highly recommend checking it out.
+
+The [AngularJS Batarang](TODO) is another of my works, and is great for both debugging and finding performance bottlenecks.
+
+## Server
+You can use any server you want with AngularJS. It is strictly a client-side library. My recommendation, and personal favorite setup, is to use [Node.js](http://nodejs.org/) alongside nginx. I use nginx to server static files, and Node to create a RESTful API and/or socketed app. Node.js hits a sweet spot between ease of use and speed. For instance, it's relatively easy to [spawn/manage additional processes](http://nodejs.org/api/child_process.html) or [create a webserver that can use all of your fancy server's cores](http://nodejs.org/api/cluster.html).
+
+As for cloud providers, I've used both [Nodejitsu](TODO) and [Linode](TODO) to great success. Nodejitsu is great if you're sticking strictly to node. It makes deploying your app easy, and you don't have to worry about your server environment. You can spawn additional node processes as needed to scale and handle bigger loads. If you need more control over your server environment, Linode gives you root to a fleet of VMs. Linode also provides a [nice API](http://www.linode.com/api/) for managing VMs. And these are by no means exhaustive; there are plenty of other great cloud server providers that I haven't had a chance to look at yet myself.
+
+Configuring and scaling a backend is a subject worth of its own article, and there's no shortage on great advice elsewhere for that. (TODO: find other good articles)
+
+## Build Process
+Admittedly, this is one thing Angular needs to be better at, and one of my huge aims for 2013 is to help on this front. I've released [ngmin](TODO), a tool that I hope will ultimately solve the problem of minimizing AngularJS apps for production.
+
+For now, I think your best bet is (TODO).
+
+## Conclusion
+AngularJS is one of the most suitable JS frameworks for writing large apps.
+
+Better yet, it's great for apps that grow organically.
