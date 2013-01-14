@@ -199,6 +199,11 @@ block main
     :markdown
       For cases that you can't transform data upon retrieval, [memoization](http://en.wikipedia.org/wiki/Memoization) is a great way to speed up your expensive filters without much work. [Addy Osmani has a pretty great article on memoization in JavaScript](http://addyosmani.com/blog/faster-javascript-memoization/) that's worth a read. As for implementation, Underscore.js provides an excellent [memoization function](https://github.com/documentcloud/underscore/blob/master/underscore.js#L626) that you can use. This technique should not be used blindly, however. Memoization only helps when you're calling a filter frequently with the same, unchanged models. For rapidly changing models that have many different values throughout your application's runtime, you're better off not memoizing filters that act on that data.
 
+      ## Testing
+      Testing is immensely important for large projects. Tests allow you to refactor with confidence, which is essential in keeping code clean on a large project. Large apps should have both unit and end-to-end (E2E) tests. Unit tests are great in helping you pinpoint problems, and E2E tests ensure that the whole app works as expected. Each controller, service, filter, and directive should have a set of unit tests. Each feature of your app should have an E2E test.
+
+      This is another topic that deserves more attention. Fortunately, the AngularJS documentation has more to say on both [unit](http://docs.angularjs.org/guide/dev_guide.unit-testing) and [E2E](http://docs.angularjs.org/guide/dev_guide.e2e-testing) tests. My colleage Vojta Jina also spoke recently about testing directives. The video is on [YouTube](http://www.youtube.com/watch?v=rB5b67Cg6bc), and definitely worth a watch.
+
       ## Tools
       I've been doing a lot of work on [Yeoman](http://yeoman.io/) to try to consolidate best practices and good project structure, and make what little boilerplate AngularJS has automagically generated. I highly recommend checking it out.
 
