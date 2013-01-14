@@ -43,7 +43,9 @@ block main
       As you add more files, it might make sense to create subdirectories to further organize controllers and services. For instance, I often find myself making a `models` directory inside of `services`. My rule of thumb is to only further sort files into directories if there is some rational hierarchy by which you can organize the files.
 
       ### Files
-      Each file should have one "thing" in it, where a "thing" is a controller, directive, filter, or service. I would make an exception for closely related directives. For example, if you have an `<pane>` directive that requires `<panel>` to be a parent, those should be in the same file.
+      Each file should have one "thing" in it, where a "thing" is a controller, directive, filter, or service. This makes for small, focused files. It also helps create a litmus test for how APIs are doing. If you find yourself flipping back and forth through files too frequently, this is an indication that your APIs are too complex. You should rethink, refactor, and simplify.
+
+      I would make an exception for closely related directives. For example, if you have an `<pane>` directive that requires `<panel>` to be a parent, those should be in the same file.
 
       ### Modules
       Define and configure all modules in `app.js`:
@@ -59,7 +61,7 @@ block main
     :markdown
       Although we (the AngularJS team) have discussed being able to lazy-load at the module granularity, it's not yet on [the roadmap for the next version of Angular](http://blog.angularjs.org/2012/07/angularjs-10-12-roadmap.html). There was a good [discussion on Google+ about using multiple top-level AngularJS apps](https://plus.google.com/u/0/108076675731922659261/posts/RJfNJoUqxHv) to produce a lazy-loading-like effect. I haven't tried it or seen it done, but if you desperately need to reduce payload size, that's certainly one way to do it.
 
-      The only remaining question is how to subdivide controllers, directives, services, and filters into modules. The [Angular Seed](https://github.com/angular/angular-seed/blob/master/app/js/app.js) puts filters, services, and directives into seperate modules, but that seems a bit silly to me. Depending on the app, I'd be more inclided to organize modules by page/route. From a performance perspective, it doesn't really matter how you organize your modules, so choose whatever method best suits your project.
+      The only remaining question is how to subdivide controllers, directives, services, and filters into modules. The [Angular Seed](https://github.com/angular/angular-seed/blob/master/app/js/app.js) puts filters, services, and directives into separate modules, but that seems a bit silly to me. Depending on the app, I'd be more inclided to organize modules by page/route. From a performance perspective, it doesn't really matter how you organize your modules, so choose whatever method best suits your project.
 
       ### Dependencies
       In general, services, controllers, directives, etc. should have as few dependencies as possible. This is good software development practice in general, but it's worth mentioning. This also will help in testing.
@@ -67,7 +69,9 @@ block main
       APIs should be layered. Controllers especially should not be synthesizing different levels of abstraction.
 
       ### Directives
-      Use an app-specific prefix for directives. For example, if your app is called "The Best Todo List App Ever," you might prefix your directives with "btla."
+      Use an app-specific prefix for directives. This is useful for avoiding collisions with 3rd party components. On the subject of 3rd party components, there's a growing community site called [ngmodules](http://ngmodules.org/) that looks promising.
+
+      For example, if your app is called "The Best Todo List App Ever," you might prefix your directives with "btla."
 
     :javascript
       angular.module('yourAppDep').directive('btlaControlPanel', function () {
@@ -78,17 +82,19 @@ block main
 
       ### Services
     :javascript
-      angular.module('yourAppDep').controller('MyCtrl', function () {
+      angular.module('yourAppDep').service('MyCtrl', function () {
         // ...
       });
     :markdown
       ### Models
-      AngularJS is unique among JavaScript frameworks in that it gives you complete control over your model layer. I think this is one of the great strengths of Angular, because at the core of your application is your data, and data varies wildly from app to app.
+      AngularJS is unique among JavaScript frameworks in that it gives you complete control over your model layer. I think this is one of the great strengths of Angular, because at the core of your application is your data, and data varies wildly from app to app. My biggest recommendation is to consider what data you will be using, and how you will store it.
 
-      If you're using something like CouchDB or MongoDB, you might be content working with plain-old JavaScript Objects (POJO). If you're coming from a Backbone.js background, you'll find many of the great utilities for dealing with models in [Underscore.js](http://documentcloud.github.com/underscore/), the utility library that powers Backbone.
+      If you're using a NoSQL datastore like CouchDB or MongoDB, you might be content working with plain-old JavaScript Objects (POJO) and functional helpers. If you're using a relational database like MySQL, you might want psuedo-classes with methods for mutating, serializing, and deserializing the data. If your server provides a RESTful interface, [`$resource`](http://docs.angularjs.org/api/ngResource.$resource) might be a good place to start. These are just suggestions; any of these approaches might be useful outside of the situations I described. With so many options, this is sometimes a challenging decision to make. But thinking hard about your data will pay off.
+
+      In general, you'll find many great utilities for dealing with models in [Underscore.js](http://documentcloud.github.com/underscore/), the utility library that also powers Backbone.js.
 
       ### Controllers
-      Controller names should start with a capital letter and end with "Ctrl" by convention.
+      By convention, controller names should start with a capital letter and end with "Ctrl".
 
     :javascript
       angular.module('yourAppDep').controller('MyCtrl', function () {
@@ -214,7 +220,7 @@ block main
 
       As for cloud providers, I've used both [Nodejitsu](http://nodejitsu.com/) and [Linode](http://www.linode.com/) to great success. Nodejitsu is great if you're sticking strictly to node. It makes deploying your app easy, and you don't have to worry about your server environment. You can spawn additional node processes as needed to scale and handle bigger loads. If you need more control over your server environment, Linode gives you root to a fleet of VMs. Linode also provides a [nice API](http://www.linode.com/api/) for managing VMs. And there are plenty of other great cloud server providers that I haven't had a chance to look at yet myself.
 
-      Configuring and scaling a backend is a subject worth of its own article, and there's no shortage on great advice elsewhere for that.
+      Configuring and scaling a backend is a subject worthy of its own article, and there's no shortage of great advice elsewhere for that.
 
       ## Build Process
       Admittedly, this is one thing Angular needs to be better at, and one of my huge aims for 2013 is to help on this front. I've released [ngmin](https://github.com/btford/ngmin), a tool that I hope will ultimately solve the problem of minimizing AngularJS apps for production.
@@ -224,7 +230,7 @@ block main
       I don't recommend using RequireJS with AngularJS. Although it's certainly possible, I haven't seen any instance where RequireJS was beneficial in practice.
 
       ## Conclusion
-      AngularJS is one of the most suitable JS frameworks for writing large apps. Out-of-the-box, it's very fast and greatly helps structure your app. But hopefully this adivce is useful as you push the boundries for what's possible with AngularJS.
+      AngularJS is one of the most suitable JS frameworks for writing large apps. Out-of-the-box, it's very fast and greatly helps structure your app. But hopefully this advice is useful as you push the boundaries for what's possible with AngularJS.
 
       Have some advice for scaling Angular apps? [Tweet](https://twitter.com/briantford), [email](mailto:btford@umich.edu), or [send a pull request on Github](https://github.com/btford/briantford.com/blob/master/jade/blog/huuuuuuge-angular-apps.jade).
 
