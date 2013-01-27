@@ -7,6 +7,9 @@ block main
     :markdown
       The AngularJS documentation is great for getting started and for looking up specific API calls. However, it doesn't really tell you how to organize and manage your app as it grows to tens or hundreds of thousands of lines of code. I've collected here some of my observations and best practices for how to manage your sprawling application. First we'll take a look at organization, then move on to some tips on improving performance, and conclude with a brief summary on tools, servers, and build processes. While this post will focus on big apps in particular, there's a great [video on YouTube from the December 2012 AngularJS meetup on best practices](https://www.youtube.com/watch?v=ZhfUv0spHCY) that's also worth checking out.
 
+      ## Don't Write a Huge App
+      The best advice about huge apps is not to make them. Write small, focused, modular parts, and progressively combine them into bigger things to make your app. (This advice brought to you by node.js hacker and all around cool dude [@substack](https://twitter.com/substack))
+
       ##Organization
       Probably the biggest question with large apps is where to put all of that code. On your toolbelt of organizational tools, you've got files, directories, modules, services, and controllers. For a quick overview of good AngularJS project structure, check out the [Angular Seed on Github](https://github.com/angular/angular-seed). However I'd like to go a bit more in-depth and offer some additional advice on project structure. Let's start with directories and work our way down the list.
 

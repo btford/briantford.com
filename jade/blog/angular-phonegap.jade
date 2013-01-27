@@ -1,0 +1,83 @@
+extends ../templates/main
+
+block main
+  h2 Building Phonegap (or Cordova or whatever) Apps with AngularJS
+  span(class='date') [2013.01.20]
+  section
+    :markdown
+      For the uninitiated, Phonegap lets you write native applications for Android, iOS, and other mobile platforms as if they were web apps. That's really exciting, because I know web stuff, and I have no interest in investing the time to learn my way through an increasing number of mobile platforms.
+
+      The goal for this tutorial is to get Phonegap up and running with AngularJS, and then show how to use Phonegap's APIs with Angular to get access to mobile APIs like notifications, geolocation, accelerometer, and [more](http://docs.phonegap.com/en/2.3.0/index.html). Then I'll spend a bit of time talking about best practices and performance tweaks to make sure your mobile app is responsive.
+
+      ## Getting Phonegap
+      First, get Phonegap installed and stuff. I'm going to be setting up to build an Android App, but this should be transferable to any of the platforms supported by Phonegap. [Follow this tutorial](http://docs.phonegap.com/en/2.3.0/guide_getting-started_index.md.html).
+
+      Compile and run, and you should see a default Cordova page. We want to remove this and replace it with out AngularJS app.
+
+      ## Getting Angular into Phonegap
+      To scaffold our mobile app, we can use [Yeoman](http://yeoman.io/).
+
+          cd your-app/assets
+          yeoman init angular
+
+      This will setup a simple app.
+
+      Next, let's grab the Cordova JavaScript file and put it into our folder structure.
+
+          mv www/cordova-2.3.0.js app/scripts/vendor/
+
+      Let's clean up some unneeded files.
+
+          rm -rf www
+
+      Now we need to reconfigure our Android app to load `assets/app/index.html` instead of `assets/www/index.html`. Open `src/<your package name>/<YourAppName>.java`, and replace this line:
+
+          super.loadUrl("file:///android_asset/www/index.html");
+
+      With the following:
+
+          super.loadUrl("file:///android_asset/app/index.html");
+
+      (TODO: continue building the app...)
+
+      ## WTF?
+      Why does this sometimes error out? A little digging through [the Cordova docs](http://docs.phonegap.com/en/2.3.0/cordova_events_events.md.html#deviceready) gice us this:
+
+          Cordova consists of two code bases: native and JavaScript. While the native code is loading, a custom loading image is displayed. However, JavaScript is only loaded once the DOM loads. This means your web application could, potentially, call a Cordova JavaScript function before it is loaded.
+
+      Cordova fires a "deviceready" event that we need to listen for. The docs also mention that:
+
+          This event behaves differently from others in that any event handler registered after the event has been fired will have its callback function called immediately.
+
+      So all we have to do is ensure calls to Cordova's APIs don't happen until after "deviceready" fires.
+
+      Now we have a few options:
+
+      1. Wait until cordova bootstraps, then asynchronously boostrap Angular
+      2. Check before each API call, and add the call to a queue if cordova is not loaded yet
+
+      Option 1 is easier to code; we write the bootstrap, then assume Cordova is always available. But it means that the user will see a flicker and the app will be unresponsive from the point when the app starts until Cordova loads.
+
+      Option 2 is a bit tricker to code, and might result in less DRY code. Thankfully, JS is a high level language so we can write a wrapper that gives us the best of both worlds.
+
+      ## Deep linking with Android Intents
+      Android Intents let an Android application interact with other applications.
+
+      ## Faster
+
+      ## Testing
+      How do you test a Phonegap application?
+
+      ### Unit Tests
+      Mock out Cordova functions, then use Testacular and run in context of some Webkit browser. This is probably "good enough" for unit tests.
+
+      ### Integration Tests
+      On Android, you can use Robotium for integration testing.
+
+      ## Conclusion
+      We were able to ...
+
+
+  script(src='/js/libs/prettify.js')
+  script
+    prettyPrint();
