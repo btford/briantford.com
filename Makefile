@@ -30,9 +30,7 @@ STATIC_OUT_DIR = $(OUT_DIR)
 JS_CONCAT_FILES = $(shell find $(JS_IN_DIR)/*.js)
 
 .PHONY: all
-all: html css js images rss
-
-all-compress: css-compress html-compress js-compress images
+all: html css images rss
 
 html:
 	node compile.js
@@ -43,15 +41,7 @@ rss:
 misc:
 	rsync -vaz $(RSYNC_EXCLUDES) $(STATIC_IN_DIR)/ $(STATIC_OUT_DIR)
 
-js: $(patsubst $(JS_IN_DIR)/%.js, $(JS_OUT_DIR)/%.js, $(JS_FILES))
-js-compress:
-	cat $(JS_CONCAT_FILES) $(JS_IN_DIR)/main.js  | yuicompressor --type js > $(JS_OUT_DIR)/main-min.js
-
 css: $(CSS_OUT_DIR)/style.css
-
-css-compress:
-	rm $(CSS_OUT_DIR)/style.css
-	compass compile --output-style compressed
 
 images:
 	rsync -vaz $(RSYNC_EXCLUDES) img/ $(STATIC_OUT_DIR)/img
@@ -64,7 +54,7 @@ $(JS_OUT_DIR)/%.js: $(JS_IN_DIR)/%.js
 	cp $< $@
 
 $(CSS_OUT_DIR)/style.css: $(SASS_FILES)
-	compass compile
+	compass compile --output-style compressed
 
 clean:
 	rm -rf $(OUT_DIR)/*

@@ -28,7 +28,7 @@ header {
 h1 {
   color: $primary-text-color;
   font-family: 'Raleway', arial;
-  font-size: 10em;
+  font-size: 6em;
   font-style: normal;
   font-weight: 500;
   
@@ -45,13 +45,10 @@ h2, h3 {
 
 h2 {
   margin-top: .25em;
-  //color: #B5D6B4;
 }
 
 h3 {
   font-size: 1.4em;
-  //margin-top: .5em;
-  //color: #A09E70;
 }
 
 h4 {
@@ -80,15 +77,6 @@ footer {
   margin-top: 3em;
   margin-left: 1.5em;
   text-align: center;
-}
-
-#animation {
-  z-index:-1;
-  
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  overflow: hidden;
 }
 
 .date {
@@ -129,7 +117,7 @@ header {
   text-align: center;
   
   h1 {
-      font-size: 4.5em;
+    font-size: 4em;
   }
 }
 
@@ -199,10 +187,8 @@ summary {
 @media only screen and (min-width: 760px) {
   @import "720";
   header {
-    text-align: left;
-
     h1 {
-        font-size: 8em;
+      font-size: 6em;
     }
   }
   
@@ -231,13 +217,6 @@ summary {
     margin-top: 1.3em;
   }
 
-  // resume
-  ul.multicolumn li {
-    display: block;
-    width: 32%;
-    float: left;
-  }
-
   .right {
     text-align: right;
   }
@@ -257,7 +236,7 @@ summary {
   
   header {
     h1 {
-      font-size: 10em;
+      font-size: 6em;
     }
   }
   nav {
@@ -267,13 +246,6 @@ summary {
 
 @media only screen and (min-width: 1280px) {
   @import "1200";
-
-  // resume
-  ul.multicolumn li {
-    display: block;
-    width: 24%;
-    float: left;
-  }
 }
 
 @media only screen and (min-width: 1600px) {
