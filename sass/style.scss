@@ -1,4 +1,5 @@
 @import "reset";
+@import "font-awesome";
 
 /* =============================================================================
    Primary styles (default + mobile)
@@ -72,15 +73,40 @@ nav {
 }
 
 footer {
-  font-size: .8em;
+  font-size: 2em;
   text-shadow: 2px 2px 1px $shadow-color;
   margin-top: 3em;
   margin-left: 1.5em;
   text-align: center;
 }
 
+.blog_link {
+  font-size: .67em;
+}
+
 .date {
   color: $date-text-color;
+}
+
+.grid_center {
+  margin: 0 auto;
+  width: 960px;
+}
+
+.blurb {
+  font-size: 1.5em;
+  line-height: 1.6;
+}
+
+.left {
+  float: left;
+  margin-right: 1em;
+}
+.center {
+  text-align: center;
+}
+.copyright {
+  font-size: .67em;
 }
 
 .name {
@@ -100,7 +126,7 @@ pre {
 }
 
 p, img {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: .75em;
 }
 

@@ -15,21 +15,18 @@ html(lang='en')
   body
     #container.container_12
       header.grid_12
-        a#hdr(href='/')
-          h1 Brian Ford
+        h1 <a href="/">Brian Ford</a><span class="blog_link"><span class="sep">/</class><a href="/blog">blog</a></span>
+
       #main.container_12(role='main')
         block main
       footer.clearfix.container_12
-        span
-          |  Copyright ©
-          |  Brian Ford
-          |  | 
-          a(href='mailto:btford@umich.edu') btford@umich.edu
-          |  | 
-          a(href='http://twitter.com/briantford') @briantford
-        #support
-          a(href='http://www.w3.org/html/logo/')
-            img(alt='made with love and html5', src='/img/html5.png')
+        :markdown
+          [<i class="icon-envelope-alt"></i>](mailto:btford@umich.edu)
+          [<i class="icon-twitter"></i>](http://twitter.com/briantford)
+          [<i class="icon-github"></i>](https://github.com/btford)
+          [<i class="icon-google-plus-sign"></i>](https://plus.google.com/118020397223309256905/posts)
+          [<i class="icon-rss"></i>](/blog.rss)
+        p.copyright Copyright © Brian Ford
     script
       var _gaq=[['_setAccount','UA-21659439-1'],['_trackPageview'],['_trackPageLoadTime']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
