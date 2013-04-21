@@ -19,7 +19,7 @@ block main
       "Package" is a Bower concept. As far as I can tell, the terms "package" and "component" are interchangeable in the context of Bower. For the sake of consistency I'm going to use "component" from here on out.
 
       ### Component
-      "Component" is a Bower concept. A component is a repo which contains some files for client-side use in a web browser. This may include, but it not limited to, JavaScript, CSS, HTML, and images. In the contect of this post, I'll be talking mostly about JavaScript, but Bower is great for other things as well.
+      "Component" is a Bower concept. A component is a repo which contains some files for client-side use in a web browser. This may include, but is not limited to, JavaScript, CSS, HTML, and images. In the context of this post, I'll be talking mostly about JavaScript, but Bower is great for other things as well.
 
       A Bower component has a `bower.json` file that describes the component and its dependencies. Again, if you come from a Node.js background, you'll be right at home with `bower.json` (though it should be notes that there are some differences between NPM's `package.json` and Bower's `bower.json`).
 
@@ -50,7 +50,7 @@ block main
             - angular-unicorn-directive git://github.com/btford/angular-unicorn-directive.git
             ...
 
-      Unfortunately, Bower is limited in it's search API, so it currently doesn't offer any great way to search with multiple keywords. That's okay though, because we can use `grep`. Here's an example seaching for keywords "angularjs" and "phonegap:"
+      Unfortunately, Bower is limited in its search API, so it currently doesn't offer any great way to search with multiple keywords. That's okay though, because we can use `grep`. Here's an example seaching for keywords "angularjs" and "phonegap:"
 
           λ → bower search angular | grep "phonegap"
             - angular-phonegap-ready git://github.com/btford/angular-phonegap-ready.git
@@ -226,7 +226,7 @@ block main
           * source repo: `angular-<thing name>`
           * optional build/release repo: `bower-angular-<thing name>-<optional-thing-type>`
 
-      I've been using dasherized names and periods to separate parts. That's a purely aesthetic/mnemonic preference. If I use camelCase, I sometimes forget how I decided to name things with acronyms (ex: myHTMLThing, myHtmlThing). I don't feel strongly about this at all, so if someone decides that camelCase is the `One True Way (tm)` and has some compelling reason, that's fine by me.
+      I've been using dasherized names and periods to separate parts. That's purely an aesthetic/mnemonic preference. If I use camelCase, I sometimes forget how I decided to name things with acronyms (ex: myHTMLThing, myHtmlThing). I don't feel strongly about this at all, so if someone decides that camelCase is the `One True Way (tm)` and has some compelling reason, that's fine by me.
 
       For `<author>` I like to use my Github handle, but twitter or whatever is fine. The reason that I prefix the module name with an author is to make it easier to fork without introducing confusion. Another developer can fork my module, and as long as they change the `<author>` of the module name, users can use either of my module or the forked one without confusion of which implementation they are using.
 
@@ -250,17 +250,17 @@ block main
 
       This is handy if you have some company-specific code you're sharing between projects. You can put this code on a private repo, but still install via Bower.
 
-      My point is to share things that make sense, but not register a package for absolutely everything. If you're not going to be watching Github and responding to issues, don't register it. Just advice users to `bower install my-name/my-component` (or fork it and do `bower install your-name/whatever-component` ).
+      My point is to share things that make sense, but not register a package for absolutely everything. If you're not going to be watching Github and responding to issues, don't register it. Just advise users to `bower install my-name/my-component` (or fork it and do `bower install your-name/whatever-component` ).
 
       Please don't claim a name in the Bower registry if you don't think you'll be able to follow up and help maintain and improve it (or are willing to hand it off to someone else to do so). When in doubt, just use the `bower install user/repo` pattern. You can always register it later.
 
-      On the other hand, even if you're new to AngularJS, don't be too intimidated. As long as you're willing to put a little time into maintaining a component, feel free to register it. Try to write some test cases for your component before putting it out there. I think puclishing components is a great way to contribute to the community, learn from others, and make something cool. If you come across an AngularJS Bower component that you think could use some sprucing up, kindly let the maintainer know. Be excellent to each other.
+      On the other hand, even if you're new to AngularJS, don't be too intimidated. As long as you're willing to put a little time into maintaining a component, feel free to register it. Try to write some test cases for your component before putting it out there. I think publishing components is a great way to contribute to the community, learn from others, and make something cool. If you come across an AngularJS Bower component that you think could use some sprucing up, kindly let the maintainer know. Be excellent to each other.
 
       ### Sharing is Caring
 
       A lot of utility libraries written and wrapped for AngularJS would be useful for users of Backbone, Ember, or who aren't using any framework at all. I really don't want to encourage developers to wrap up all the cool stuff they do into strictly AngularJS modules so it's only available to developers using AngularJS. The general guideline I use is that for something >=1000 LOC that isn't doing something Angular-specific, make a new project, then write an AngularJS adapter (if needed).
 
-      On the other hand, there's no need to share things outside of AngularJS that are are by nature only useful alongside Angular APIs. A couple hundred lines of JS that relies on `$location` and `$http` isn't worth the effort to use in Backbone.js, even though you could write some abstraction around the AngularJS services. A couple thousand lines for a new routing system for AngularJS also probably doesn't need to be shared with the greater web community. A 2000 LOC library that creates canvas-based animated charts might be worth abstracting into its own library for sharing before using it to write AngularJS directives.
+      On the other hand, there's no need to share things outside of AngularJS that are by nature only useful alongside Angular APIs. A couple hundred lines of JS that rely on `$location` and `$http` isn't worth the effort to use in Backbone.js, even though you could write some abstraction around the AngularJS services. A couple thousand lines for a new routing system for AngularJS also probably doesn't need to be shared with the greater web community. A 2000 LOC library that creates canvas-based animated charts might be worth abstracting into its own library for sharing before using it to write AngularJS directives.
 
       ### Kitchen Sink Widgets
 
@@ -268,7 +268,7 @@ block main
 
       If you find a component that does something similar to what you want, but not exactly, consider forking it and changing it rather than adding a bunch of options to the existing one. Where possible, consider using attribute directives with the "mixin" pattern in mind. Users can then compose widgets of many attribute directives to get their end behavior. My rule of thumb is to use an element when the directive needs some specific layout and positioning, and an attribute otherwise. In other words, you don't want directives competing for layout behavior, but you don't want to restrict the usefulness of a directive.
 
-      Consider the afformentioned [Unicorn Directive](https://github.com/btford/angular-unicorn-directive). There's currently an issue asking for [rainbow](https://github.com/btford/angular-unicorn-directive/issues/3) support. It might be a better idea to make a seperate rainbow attribute directive, so you can add rainbows to not only `<unicorn>`s, but also other elements (and, naturally, other mythological creatures).
+      Consider the aformentioned [Unicorn Directive](https://github.com/btford/angular-unicorn-directive). There's currently an issue asking for [rainbow](https://github.com/btford/angular-unicorn-directive/issues/3) support. It might be a better idea to make a seperate rainbow attribute directive, so you can add rainbows to not only `<unicorn>`s, but also other elements (and, naturally, other mythological creatures).
 
       I also think it's best to avoid "Collections of X" components. One component should do one thing well. It's fine for a Bower component to contain an AngularJS module which registers multiple directives or services, but that should only be the cases where you need (or almost always use) these registered things together. This goes for utility components as well. I love the utilities in underscore.js, but I really don't like the "all or nothing" approach to bundling them when most users of the library only use a handful of the many provided.
 
