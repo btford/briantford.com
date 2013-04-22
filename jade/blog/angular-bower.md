@@ -13,7 +13,7 @@ It's worth mentioning that I think Bower is still far from perfect. For instance
 These terms have been overloaded to _death_, and if you've been following the various proposals for standardized ECMAScript modules floating around, things get confusing fast. Let's step back a second and define these terms in the context of AngularJS and Bower.
 
 ### Package
-"Package" is a Bower concept. As far as I can tell, the terms "package" and "component" are interchangeable in the context of Bower. For the sake of consistency I'm going to use "component" from here on out.
+"Package" is a Bower concept. For the time being, you can think of the terms "package" and "component" as being interchangeable in the context of Bower. In general, "package" is the thing that you can download, and contains a component, which is a group of one or more assets. I say you can think of them as interchangeable because for now, there's a one-to-one correspondence of package to component. For the sake of consistency I'm going to use "component" from here on out.
 
 ### Component
 "Component" is a Bower concept. A component is a repo which contains some files for client-side use in a web browser. This may include, but is not limited to, JavaScript, CSS, HTML, and images. In the context of this post, I'll be talking mostly about JavaScript, but Bower is great for other things as well.
