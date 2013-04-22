@@ -182,26 +182,26 @@ Keep in mind that Bower uses the git tags to determine what versions are availab
 Now we just have to push these changes to a git repo. Github is a great choice, so let's go with that. Let's make a repo called `angular-my-component` and push these changes to it (replacing names appropriately):
 
 ```shell
-git remote add origin git@github.com:your-user-name/angular-my-component.git
-git push -u origin master
+λ → git remote add origin git@github.com:your-user-name/angular-my-component.git
+λ → git push -u origin master
 ```
 
 With that, other developers can install the component like this:
 
 ```shell
-bower install your-user-name/angular-my-component
+λ → bower install your-user-name/angular-my-component
 ```
 
 If you want your component to appear in searches and be installable without your user name, you have to register it. Before running a command like this, please see below for a discussion of when and when not to register. Registering bower components is incredibly easy. Like above, you need to have the component hosted at some git endpoint (Github and Bitbucket are great options). Then, you simply run the following command:
 
 ```shell
-bower register angular-my-component git@github.com:your-user-name/your-repo-name.git
+λ → bower register angular-my-component git@github.com:your-user-name/your-repo-name.git
 ```
 
 Let's go back to the app we grabbed this directive from and refactor to use this one.
 
 ```shell
-bower install angular-my-component
+λ → bower install angular-my-component
 ```
 
 The component is installed, but we have to update our `index.html` file to load the script. Easily enough, we can add:
@@ -229,13 +229,13 @@ But what happens if we find we need to change the directive in our component? Do
 First, in the `angular-my-component` directory, run:
 
 ```
-bower link
+λ → bower link
 ```
 
 In your application directory, run:
 
 ```
-bower link angular-my-component
+λ → bower link angular-my-component
 ```
 
 What does this do? Basically, it creates a symbolic link from the `angular-my-directive` directory to the appropriate directoy inside of `components` for the app. Thus, when you make changes to the component, they'll be reflected in your app. This is a great way to develop an app and a set of resuable components alongside eachother.
@@ -275,7 +275,7 @@ I wouldn't bother creating a separate "build repo" for most projects. If the bui
 While I think sharing code is great, there's no need to globally register absolutely everything to Bower to be able to use it. As mentioned earlier, Bower lets you install from Github like this:
 
 ```
-bower install btford/angular-dragon-drop
+λ → bower install btford/angular-dragon-drop
 ```
 
 This command will resolves to the repo at `git@github.com:btford/angular-socket-io.git`.
@@ -283,7 +283,7 @@ This command will resolves to the repo at `git@github.com:btford/angular-socket-
 Bower also lets you install from arbitrary git repos, so if I didn't want to publicly register on Github. You can do the following:
 
 ```
-bower install git@github.com:btford/angular-socket-io.git
+λ → bower install git@github.com:btford/angular-socket-io.git
 ```
 
 This is handy if you have some company-specific code you're sharing between projects. You can put this code on a private repo, but still install via Bower.
