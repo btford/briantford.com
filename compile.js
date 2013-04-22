@@ -3,23 +3,44 @@
 var fs = require('fs'),
   jade = require('jade'),
   _ = require('underscore'),
-  moment = require('moment');
+  moment = require('moment'),
+  marked = require('marked'),
+  hljs = require('highlight.js');
 
-jade.filters.javascript = function (str) {
-  return '<pre class="prettyprint linenums lang-js">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
+var highlight = function(code, lang) {
+  if (lang === 'shell') {
+    lang = 'bash';
+  }
+  if (lang === 'html') {
+    lang = 'http';
+  }
+  if (lang === 'jade') {
+    return code.replace(/&/g,'&amp;').
+      replace(/</g,'&lt;').
+      replace(/>/g,'&gt;').
+      replace(/"/g, '&quot;').
+      replace(/'/g, '&#39;').
+      replace(/\n/g, '\\n');
+  }
+  return hljs.highlight(lang || 'bash', code).value;
 };
 
-jade.filters.jade = function (str) {
-  return '<pre class="prettyprint linenums lang-html">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
-};
+marked.setOptions({
+  gfm: true,
+  tables: true,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  highlight: highlight
+});
 
-jade.filters.css = function (str) {
-  return '<pre class="prettyprint linenums lang-css">' + str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n') + '</pre>';
-};
+jade.filters.markdown = marked;
 
-jade.filters.html = function (str) {
-  return '<pre class="prettyprint linenums lang-html">' + str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/\n/g, '\\n') + '</pre>';
-};
+['javascript', 'jade', 'css', 'html'].forEach(function (lang) {
+  jade.filters[lang] = function (code) {
+    return '<pre><code>' + highlight(code, lang) + '</code></pre>';
+  };
+});
 
 var jadeBase = __dirname + '/jade';
 var outBase = __dirname + '/out';
@@ -48,7 +69,7 @@ var compile = function (dir) {
     });
 
     var locals;
-  
+
     try {
       locals = JSON.parse(fs.readFileSync(jadeBase + dir + '/' + page + '.json'));
     } catch (e) {} //idc lol
@@ -61,7 +82,7 @@ var compile = function (dir) {
     });
 
     //locals.title = filename.substr(0, -5);
-    
+
     var output = jadeFn(locals);
     var outFilePath = outBase + dir + '/' + page + '.html';
 
@@ -73,7 +94,7 @@ var compile = function (dir) {
   var dirs = _.filter(contents, function (file) {
     return file.indexOf('.') === -1 && excludes.indexOf(file) === -1;
   });
-  
+
   _.each(dirs, function (subdir) {
     compile(dir + '/' + subdir);
   });

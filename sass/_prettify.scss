@@ -8,11 +8,15 @@ $monokai-green: #A6E22E;
 $monokai-yellow: #E6DB74;
 
 @media screen {
-  .str { color: $monokai-yellow; }  /* string content */
-  .kwd { color: #66D9EF; }  /* a keyword */
-  .com { color: #75715E; }  /* a comment */
+  .str,
+  .string { color: $monokai-yellow; }  /* string content */
+  .kwd,
+  .keyword { color: #66D9EF; }  /* a keyword */
+  .com,
+  .comment { color: #75715E; }  /* a comment */
   .typ { color: $monokai-green; }  /* a type name */
-  .lit { color: #AE81FF }  /* a literal value */
+  .lit,
+  .number { color: #AE81FF }  /* a literal value */
   /* punctuation, lisp open bracket, lisp close bracket */
   /* .pun, .opn, .clo { color: #660 } */
   .tag { color: $monokai-pink; }  /* a markup tag name */

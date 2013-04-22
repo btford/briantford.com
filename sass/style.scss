@@ -18,42 +18,43 @@ $date-text-color: $tertiary-text-color;
 body {
   background-color: #333;
   font-size: 1em;
-  font-family: 'Tinos', sans-serif;
+  font-family: 'Lato', sans-serif;
   color: $primary-text-color;
 }
 
 header {
   white-space: nowrap;
+
+  h1 {
+    color: $primary-text-color;
+    font-family: 'Raleway', arial;
+    font-size: 6em;
+    font-style: normal;
+    font-weight: 500;
+    
+    text-shadow: 3px 3px 1px $shadow-color;
+    
+    margin-bottom: .05em;
+    margin-top: 0px;
+  }
 }
 
-h1 {
-  color: $primary-text-color;
-  font-family: 'Raleway', arial;
-  font-size: 6em;
-  font-style: normal;
-  font-weight: 500;
-  
-  text-shadow: 3px 3px 1px $shadow-color;
-  
-  margin-bottom: .05em;
-  margin-top: 0px;
-}
+section {
+  h1, h2, h3 {
+    text-shadow: 2px 2px 1px $shadow-color;
+  }
 
-h2, h3 {
-  margin-bottom: -.1em;
-  text-shadow: 2px 2px 1px $shadow-color;
-}
+  h2 {
+    margin-top: .25em;
+  }
 
-h2 {
-  margin-top: .25em;
-}
+  h3 {
+    font-size: 1.4em;
+  }
 
-h3 {
-  font-size: 1.4em;
-}
-
-h4 {
-  margin: .5em 0 0 0;
+  h4 {
+    margin: .5em 0 0 0;
+  }
 }
 
 nav {
@@ -177,6 +178,15 @@ th {
   border-bottom: solid white 2px;
 }
 
+p > code {
+  margin: 0 2px;
+  padding: 0px 5px;
+  border: 2px solid #666;
+  white-space: nowrap;
+  //background-color: #555;
+  border-radius: 3px;
+}
+
 #support {
   margin-top: 10px;
 }
@@ -234,13 +244,15 @@ summary {
       display: block;
     }
   }
-  h2 {
-    font-size: 2em;
-    margin-bottom: 4px;
-  }
-  h3 {
-    font-size: 1.3em;
-    margin-top: 1.3em;
+  section {
+    h2 {
+      font-size: 2em;
+      margin-bottom: 4px;
+    }
+    h3 {
+      font-size: 1.3em;
+      margin-top: 1.3em;
+    }
   }
 
   .right {

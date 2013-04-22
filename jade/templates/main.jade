@@ -8,16 +8,17 @@ html(lang='en')
     //- Mobile viewport optimized: j.mp/bplateviewport 
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     //- CSS: implied media="all" 
-    link(href='http://fonts.googleapis.com/css?family=Raleway:100|Tinos:normal', rel='stylesheet', type='text/css')
-    link(rel='stylesheet', href='/css/style.css')
-    script(src='/js/libs/respond.min.js')
+    link(href='http://fonts.googleapis.com/css?family=Raleway:100|Tinos:normal|Lato:400,700,400italic,700italic', rel='stylesheet')
+    link(href='/css/style.css', rel='stylesheet')
     link(rel="alternate", type="application/rss+xml", title="RSS", href="/blog.rss")
   body
-    #container.container_12
+    .container_12
       header.grid_12
         h1 <a href="/">Brian Ford</a><span class="blog_link"><span class="sep">/</class><a href="/blog">blog</a></span>
 
-      #main.container_12(role='main')
+    #main.container_12(role='main')
+      section
+        block title
         block main
       footer.clearfix.container_12
         :markdown
