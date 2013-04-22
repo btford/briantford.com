@@ -59,6 +59,10 @@ var compile = function (dir) {
     fs.mkdirSync(outBase + dir);
   } catch (e) {}
 
+
+  // jade pages
+  // ------------------------------------------------
+
   _.each(pages, function (page) {
     page = page.substr(0, page.length - 5);
     var filename = jadeBase + dir + '/' + page + '.jade';
@@ -90,7 +94,44 @@ var compile = function (dir) {
     console.log('Finished ' + dir + '/' + page + '.html');
   });
 
+  // markdown pages
+  // ------------------------------------------------
+
+  var down = _.filter(contents, function (file) {
+    return file.substr(-3) === '.md';
+  });
+
+  _.each(down, function (page) {
+    page = page.substr(0, page.length - 3);
+
+    var template = fs.readFileSync(jadeBase + '/templates/blog.jade');
+
+    var jadeFn = jade.compile(template);
+
+    var locals;
+
+    try {
+      locals = JSON.parse(fs.readFileSync(jadeBase + dir + '/' + page + '.json'));
+    } catch (e) {} //idc lol
+    if (!locals) {
+      locals = {};
+    }
+    locals.body = marked(fs.readFileSync(jadeBase + dir + '/' + page + '.md', 'utf8'));
+    locals.posts = JSON.parse(fs.readFileSync('json/blog.json'));
+    locals.posts.forEach(function (post) {
+      post.date = moment(post.date).format('YYYY.MM.DD');
+    });
+
+    var output = jadeFn(locals);
+    var outFilePath = outBase + dir + '/' + page + '.html';
+
+    fs.writeFileSync(outFilePath, output);
+    console.log('Finished ' + dir + '/' + page + '.html');
+  });
+
   // recursively compile each dir
+  // ------------------------------------------------
+
   var dirs = _.filter(contents, function (file) {
     return file.indexOf('.') === -1 && excludes.indexOf(file) === -1;
   });

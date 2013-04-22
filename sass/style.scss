@@ -44,6 +44,11 @@ section {
     text-shadow: 2px 2px 1px $shadow-color;
   }
 
+  h1 {
+    font-size: 3em;
+    text-align: center;
+  }
+
   h2 {
     margin-top: .25em;
   }
@@ -58,7 +63,6 @@ section {
 }
 
 nav {
-  font-family: 'Tinos', arial, serif;
   text-shadow: 2px 2px 1px #111;
   word-spacing: 0em;
   line-height: 1em;
@@ -67,16 +71,11 @@ nav {
   margin-right: .75em;
 }
 
-#main {
-  clear: both;
-  //padding-left: .75em;
-  //text-shadow: 2px 2px 4px $shadow-color;
-}
-
 footer {
   font-size: 2em;
   text-shadow: 2px 2px 1px $shadow-color;
   margin-top: 3em;
+  margin-bottom: 1em;
   margin-left: 1.5em;
   text-align: center;
 }
