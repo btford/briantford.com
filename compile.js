@@ -11,17 +11,10 @@ var highlight = function(code, lang) {
   if (lang === 'shell') {
     lang = 'bash';
   }
-  if (lang === 'html') {
+  if (lang === 'html' || lang === 'jade') {
     lang = 'http';
   }
-  if (lang === 'jade') {
-    return code.replace(/&/g,'&amp;').
-      replace(/</g,'&lt;').
-      replace(/>/g,'&gt;').
-      replace(/"/g, '&quot;').
-      replace(/'/g, '&#39;').
-      replace(/\n/g, '\\n');
-  }
+
   return hljs.highlight(lang || 'bash', code).value;
 };
 
