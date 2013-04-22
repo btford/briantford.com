@@ -51,10 +51,6 @@ var excludes = ['templates'];
 var compile = function (dir) {
   var contents = fs.readdirSync(jadeBase + dir);
 
-  var pages = _.filter(contents, function (file) {
-    return file.substr(-5) === '.jade';
-  });
-
   try {
     fs.mkdirSync(outBase + dir);
   } catch (e) {}
@@ -62,6 +58,10 @@ var compile = function (dir) {
 
   // jade pages
   // ------------------------------------------------
+
+  var pages = _.filter(contents, function (file) {
+    return file.substr(-5) === '.jade';
+  });
 
   _.each(pages, function (page) {
     page = page.substr(0, page.length - 5);
