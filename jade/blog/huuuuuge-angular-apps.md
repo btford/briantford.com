@@ -250,4 +250,4 @@ I don't recommend using RequireJS with AngularJS. Although it's certainly possib
 ## Conclusion
 AngularJS is one of the most suitable JS frameworks for writing large apps. Out-of-the-box, it's very fast and greatly helps structure your app. But hopefully this advice is useful as you push the boundaries for what's possible with AngularJS.
 
-Have some advice for scaling Angular apps? [Tweet](https://twitter.com/briantford), [email](mailto:btford@umich.edu), or [send a pull request on Github](https://github.com/btford/briantford.com/blob/master/jade/blog/huuuuuuge-angular-apps.jade).
+Have some advice for scaling Angular apps? [Tweet](https://twitter.com/briantford), [email](mailto:btford@umich.edu), or [send a pull request on Github](https://github.com/btford/briantford.com/blob/master/jade/blog/huuuuuge-angular-apps.md).
