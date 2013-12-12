@@ -315,4 +315,4 @@ Although there were a few caveats, making a PhoneGap application with AngularJS 
 
 Still there are obvious cases for native apps as well. If you're writing an augmented reality app, the cost of transfering video in realtime over the native-to-JavaScript bridge will probably not be performant enough. I think [some games](http://phonegap.com/blog/2013/01/18/my-first-mobile-game-in-html-with-phonegap-build/) will be able to be written with PhoneGap, but games that need to squeeze every drop of performance out of a device should probably stick to a native app.
 
-As always, let me know what you think via [email](sendto:btford@umich.edu) or [Twitter](https://twitter.com/briantford). Have some further advice to give? Send me a [pull request on Github]((https://github.com/btford/briantford.com/blob/master/jade/blog/angular-phonegap.md). Thanks for reading!
+As always, let me know what you think via [email](sendto:btford@umich.edu) or [Twitter](https://twitter.com/briantford). Have some further advice to give? Send me a [pull request on Github](https://github.com/btford/briantford.com/blob/master/jade/blog/angular-phonegap.md). Thanks for reading!
