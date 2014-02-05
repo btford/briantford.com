@@ -21,7 +21,7 @@ This is going to be a very simple application, so we're going to write all of th
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.js"></script>
     <script src="app.js"></script>
   </head>
-  <body ng-ctrl="AppCtrl">
+  <body ng-controller="AppCtrl">
     <!-- Here's where our visualization will go -->
     <gh-visualization val="data"></gh-visualization>
   </body>
