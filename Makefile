@@ -22,7 +22,7 @@ JS_OUT_DIR = $(OUT_DIR)/js
 JS_CONCAT_FILES = $(shell find $(JS_IN_DIR)/*.js)
 
 .PHONY: all
-all: html static rss
+all: html static_files rss
 
 html:
 	node compile.js
@@ -30,7 +30,7 @@ html:
 rss:
 	node rss.js
 
-static: $(STATIC_FILES)
+static_files: $(STATIC_FILES)
 	rsync -vaz $(RSYNC_EXCLUDES) $(STATIC_IN_DIR)/ $(STATIC_OUT_DIR)
 
 #$(HTML_OUT_DIR)/%.html: %.jade
