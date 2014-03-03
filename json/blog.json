@@ -1,5 +1,14 @@
 [
   {
+    "title": "The Future of AngularJS",
+    "date": "Thu, Sept 26 2013 6:22:00 -0400",
+    "link": "https://www.youtube.com/watch?v=XTPk_yYaqfQ",
+    "slides": {
+      "on": "Google Drive",
+      "link": "https://docs.google.com/presentation/d/1Gv-dvU-yy6WY7SiNJ9QRo9XayPS6N2jtgWezdRpoI04/present#slide=id.p"
+    }
+  },
+  {
     "title": "Writing Reusable AngularJS Components with Bower",
     "date": "Mon, Apr 22 2013 08:13:37 -0400",
     "link": "http://briantford.com/blog/angular-bower.html"
