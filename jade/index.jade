@@ -1,12 +1,17 @@
 extends templates/main
 
 block main
-  .grid_12.center
-    img(src="http://gravatar.com/avatar/721cc7667947af96cc416729fc497107?size=300", alt="me")
-    .blurb
-      :markdown
-        Student, software developer, and aspiring author<br>
-        JavaScript (and Node.js) enthusiast<br>
-        I like (m|bre)aking things<br>
-        Working on AngularJS at Google<br>
-        日本語がちょっと分かる
+  section
+    for item in posts
+      p
+        span.date [#{item.date}] 
+        a(href='#{item.link}') #{item.title}
+        if item.feat
+          |  | Featured
+          if item.feat.on
+            |  on  
+            a(href='#{item.feat.link}') #{item.feat.on}
+          if item.feat.in
+            |  in  
+            a(href='#{item.feat.link}') #{item.feat.in}
+
