@@ -3,8 +3,7 @@
     "title": "Zones @ ng-conf 2014",
     "date": "Fri, Jan 17 2014 13:30:00 -0700",
     "link": "https://www.youtube.com/watch?v=3IqtmUscE_U"
-  },
-  {
+  }, {
     "title": "The Future of AngularJS",
     "date": "Thu, Sept 26 2013 18:22:00 -0800",
     "link": "https://www.youtube.com/watch?v=XTPk_yYaqfQ",
@@ -12,8 +11,7 @@
       "on": "Google Drive",
       "link": "https://docs.google.com/presentation/d/1Gv-dvU-yy6WY7SiNJ9QRo9XayPS6N2jtgWezdRpoI04/present#slide=id.p"
     }
-  },
-  {
+  }, {
     "title": "Writing Reusable AngularJS Components with Bower",
     "date": "Mon, Apr 22 2013 08:13:37 -0400",
     "link": "http://briantford.com/blog/angular-bower.html"
