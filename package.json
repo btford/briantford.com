@@ -1,6 +1,7 @@
 {
   "name": "briantford.com",
   "version": "0.0.0",
+  "private": true,
   "description": "personal site for @briantford",
   "main": "compile.js",
   "dependencies": {
