@@ -16,9 +16,12 @@
     "underscore": "~1.3.3",
     "jade": "~0.29.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "uncss": "^0.8.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "make"
   },
   "repository": {
     "type": "git",
