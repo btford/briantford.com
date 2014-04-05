@@ -22,10 +22,18 @@ JS_OUT_DIR = $(OUT_DIR)/js
 JS_CONCAT_FILES = $(shell find $(JS_IN_DIR)/*.js)
 
 .PHONY: all
-all: html static_files rss
+all: html css static_files rss
 
 html:
 	node compile.js
+
+css: out/css/style.min.css
+
+out/css/style.slim.css: $(shell find $(STATIC_OUT_DIR) -type f -name '*.html') $(shell find $(STATIC_OUT_DIR) -type f -name '*.css')
+	./node_modules/.bin/uncss --stylesheets css/style.css out/index.html > out/css/style.slim.css
+
+out/css/style.min.css: out/css/style.slim.css
+	./node_modules/.bin/cleancss --s0 < out/css/style.slim.css > out/css/style.min.css
 
 rss:
 	node rss.js
