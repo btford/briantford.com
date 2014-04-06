@@ -1,5 +1,5 @@
 # <a href="./">«</a> Writing Reusable AngularJS Components with Bower
-    
+
 <span class="date">[2013.04.22]</span>
 
 [Bower](https://github.com/twitter/bower) is a new package manager for client-side components by talented engineers at Twitter. If you come from the Node.js world, you can think of Bower as "NPM for client-side stuff." Incidentally, the API and configuration is very similar to NPM.
@@ -64,7 +64,7 @@ Now that we've found a promisingly-named component, we want to do a bit of resea
 
 After looking at the readme, let's say that we decide that we want to install some component. The command, unsurprisingly, is:
 
-```
+```shell
 bower install component-name
 ```
 
@@ -112,7 +112,7 @@ add commonly ignored files to ignore list? (y/n): [y] y
 
 Let's check the contents of this `bower.json` file:
 
-```javascript
+```json
 {
   "name": "angular-my-directive",
   "version": "0.0.0",
@@ -127,7 +127,7 @@ Let's check the contents of this `bower.json` file:
 
 So far so good. We need to include AngularJS as a dependency. Edit `bower.json` like this:
 
-```javascript
+```json
 {
   "name": "angular-my-directive",
   "version": "0.0.0",
@@ -219,6 +219,7 @@ angular.module('myApp', [
 ]).
 config(function () {
   // ...
+});
 ```
 
 
