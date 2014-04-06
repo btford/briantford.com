@@ -1,4 +1,4 @@
-# <a href="./">«</a> Writing Reusable AngularJS Components with Bower
+# Writing Reusable AngularJS Components with Bower
 
 <span class="date">[2013.04.22]</span>
 

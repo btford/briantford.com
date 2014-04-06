@@ -1,4 +1,4 @@
-# <a href="./">«</a> Building PhoneGap Apps with AngularJS
+# Building PhoneGap Apps with AngularJS
 
 <span class="date">[2013.01.20]</span>
 

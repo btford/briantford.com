@@ -1,4 +1,4 @@
-# <a href="./">«</a> Hacking Core Directives in AngularJS
+# Hacking Core Directives in AngularJS
 
 <span class="date">[2014.04.03]</span>
 

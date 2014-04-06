@@ -1,4 +1,4 @@
-# <a href="./">«</a> Semicolons
+# Semicolons
 
 <span class="date">[2012.09.25]</span>
 
@@ -19,7 +19,7 @@ Most are familiar with the [Tabs Versus Spaces Debacle](http://www.jwz.org/doc/t
 Here's the relevant part of the [Go Language Spec](http://golang.org/ref/spec#Semicolons):
 
 > The formal grammar uses semicolons ";" as terminators in a number of productions. Go programs may omit most of these semicolons using the following two rules:
-> 
+>
 > 1.  When the input is broken into tokens, a semicolon is automatically inserted into the token stream at the end of a non-blank line if the line's final token is
 >     * an identifier
 >     * an integer, floating-point, imaginary, rune, or string literal

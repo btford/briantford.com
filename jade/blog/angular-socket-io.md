@@ -1,5 +1,5 @@
 
-# <a href="./">«</a> Writing an AngularJS App with Socket.IO
+# Writing an AngularJS App with Socket.IO
 
 <span class="date">[2012.07.17]</span>
 
@@ -55,7 +55,7 @@ div(ng-controller='AppCtrl')
 
 .clr
   form(ng-submit='sendMessage()')
-    | Message: 
+    | Message:
     input(size='60', ng-model='message')
     input(type='submit', value='Send')
 
@@ -103,7 +103,7 @@ app.factory('socket', function ($rootScope) {
   var socket = io.connect();
   return {
     on: function (eventName, callback) {
-      socket.on(eventName, function () {  
+      socket.on(eventName, function () {
         var args = arguments;
         $rootScope.$apply(function () {
           callback.apply(socket, args);
@@ -209,7 +209,7 @@ function AppCtrl($scope, socket) {
       if (!result) {
         alert('There was an error changing your name');
       } else {
-        
+
         changeName($scope.name, $scope.newName);
 
         $scope.name = $scope.newName;
@@ -333,7 +333,7 @@ module.exports = function (socket) {
       userNames.free(oldName);
 
       name = data.name;
-      
+
       socket.broadcast.emit('change:name', {
         oldName: oldName,
         newName: name

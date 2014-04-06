@@ -1,4 +1,4 @@
-# <a href="./">«</a> Using the D3.js Visualization Library with AngularJS
+# Using the D3.js Visualization Library with AngularJS
 
 <span class="date">[2012.07.31]</span>
 
@@ -172,7 +172,7 @@ app.directive('myDirective', function ( /* dependencies */ ) {
 
       // ...
 
-      // whenever the bound 'exp' expression changes, execute this 
+      // whenever the bound 'exp' expression changes, execute this
       scope.$watch('exp', function (newVal, oldVal) {
         // ...
       });
@@ -222,7 +222,7 @@ d3DemoApp.directive('ghVisualization', function () {
         var n = newVal.length, // number of layers
             m = newVal[0].length, // number of samples per layer
             data = d3.layout.stack()(newVal);
-        
+
         var mx = m,
             my = d3.max(data, function(d) {
               return d3.max(d, function(d) {
@@ -238,7 +238,7 @@ d3DemoApp.directive('ghVisualization', function () {
             y0 = function(d) { return height - d.y0 * height / my; },
             y1 = function(d) { return height - (d.y + d.y0) * height / my; },
             y2 = function(d) { return d.y * height / mz; }; // or `my` not rescale
-        
+
         // Layers for each color
         // =====================
 
@@ -252,7 +252,7 @@ d3DemoApp.directive('ghVisualization', function () {
 
         // Bars
         // ====
-        
+
         var bars = layers.selectAll("g.bar")
             .data(function(d) { return d; })
           .enter().append("g")
@@ -260,7 +260,7 @@ d3DemoApp.directive('ghVisualization', function () {
             .attr("transform", function(d) {
               return "translate(" + x(d) + ",0)";
             });
-        
+
         bars.append("rect")
             .attr("width", x({x: .9}))
             .attr("x", 0)
@@ -337,7 +337,7 @@ d3DemoApp.directive('ghVisualization', function () {
               .attr("x", function(d, i) { return x({x: .9 * ~~(i / m) / n}); })
               .attr("width", x({x: .9 / n}))
               .each("end", transitionEnd);
-        
+
           function transitionEnd() {
             d3.select(this)
               .transition()
@@ -357,7 +357,7 @@ d3DemoApp.directive('ghVisualization', function () {
                 return y0(d) - y1(d);
               })
               .each("end", transitionEnd);
-        
+
           function transitionEnd() {
             d3.select(this)
               .transition()
@@ -430,7 +430,7 @@ We still need some controls to handle choosing which repository to look at. It w
     <input type="submit" value="Get Data">
     Grouped <input type="checkbox" ng-model="grouped">
   </form>
-  
+
   <p class="error">{{error}}</p>
   <gh-visualization val="data" grouped="grouped"></gh-visualization>
 </body>

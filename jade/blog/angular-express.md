@@ -1,4 +1,4 @@
-# <a href="./">«</a> Writing an AngularJS App with an Express + Node.js Backend
+# Writing an AngularJS App with an Express + Node.js Backend
 <span class='date'>[2012.06.20]</span>
 
 AngularJS is like the missing [Batarang](http://en.wikipedia.org/wiki/Batarang) on your utility belt of web development awesomeness. It gives you two-way data binding that's both easy to use and fast, a powerful directive system that lets you use create reusable custom components, plus a lot more. [Express](http://expressjs.com/) is an excellent webserver for Node.js that provides routing, middleware, and sessions. Incidentally, the two work quite well together!
@@ -109,9 +109,9 @@ div(ng-repeat='post in posts')
   h3 {{post.title}}
   div {{post.text}}
   a(href='readPost/{{post.id}}') More
-  |  - 
+  |  -
   a(href='editPost/{{post.id}}') Edit
-  |  - 
+  |  -
   a(href='deletePost/{{post.id}}') Delete
 ```
 
@@ -128,7 +128,7 @@ One for adding a new post: `views/partials/addPost.jade`
 
 ```jade
 h2 Write a new post
-label(for='title') Title: 
+label(for='title') Title:
 input(ng-model='form.title', name='title')
 p Body:
 textarea(ng-model='form.text', cols='50', rows='15')
@@ -140,7 +140,7 @@ One for editing an existing post: `views/partials/editPost.jade`
 
 ```jade
 h2 Edit post
-label(for='title') Title: 
+label(for='title') Title:
 input(ng-model='form.title', name='title')
 p Body:
 textarea(ng-model='form.text', cols='50', rows='15')
@@ -154,9 +154,9 @@ Lastly, a view for deleting a post: `views/partials/deletePost.jade`
 h2 {{post.title}}
 div {{post.text}}
 p
-  | Are you sure you want to delete this post? 
+  | Are you sure you want to delete this post?
   button(ng-click='deletePost()') Yes
-  |  - 
+  |  -
   button(ng-click='home()') No thanks
 ```
 
@@ -280,7 +280,7 @@ function EditPostCtrl($scope, $http, $location, $routeParams) {
 
 ```jade
 h2 Edit post
-label(for='title') Title: 
+label(for='title') Title:
 input(ng-model='form.title', name='title')
 p Body:
 textarea(ng-model='form.text', cols='50', rows='15')

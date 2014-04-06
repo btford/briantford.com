@@ -1,4 +1,4 @@
-# <a href="../">«</a> Understanding Dependency Injection
+# Understanding Dependency Injection
 
 <span class="date">[2014.04.05]</span>
 

@@ -1,4 +1,4 @@
-# <a href="./">«</a> Using Yeoman with AngularJS
+# Using Yeoman with AngularJS
 
 <span class="date">[2012.09.10]</span>
 
@@ -9,7 +9,7 @@ Out of the box, Yeoman includes some excellent features for building AngularJS a
 ```shell
 λ → mkdir yeoman-test
 λ → cd yeoman-test
-λ → yeoman init angular 
+λ → yeoman init angular
 ```
 
 Yeoman will report creating the following files:
@@ -261,7 +261,7 @@ To build the production-ready version of your app, simply run:
 
 Yeoman will automatically concatinate the scripts between `<!-- build:js scripts/scripts.js -->` and `<!-- endbuild -->`, version the file names, and update the references to the versioned files in your html. Automatic minification is not yet implemented, but it's coming soon!
 
-Yeoman can also be configured to optimize images and do whatever else your application needs to be blazing fast. The build system is based on [Grunt](http://gruntjs.com/), which has many additional plugins and is highly extensible. 
+Yeoman can also be configured to optimize images and do whatever else your application needs to be blazing fast. The build system is based on [Grunt](http://gruntjs.com/), which has many additional plugins and is highly extensible.
 
 ### Conclusion
 

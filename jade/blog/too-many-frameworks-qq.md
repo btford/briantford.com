@@ -1,4 +1,4 @@
-# <a href="./">«</a> Stop Whining About New JS Frameworks
+# Stop Whining About New JS Frameworks
 
 <span class="date">[2012.07.14]</span>
 

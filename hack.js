@@ -7,7 +7,7 @@ renderer.heading = function (text, level) {
   var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
 
   if (level === 1) {
-    return '<h1>' + text + '</h1>';
+    return '<h1><a href="../">«</a> ' + text + '</h1>';
   }
 
   return '<h' + level + '><a name="' +

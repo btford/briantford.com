@@ -1,4 +1,4 @@
-# <a href="./">«</a> Building Huuuuuge Apps with AngularJS
+# Building Huuuuuge Apps with AngularJS
 <span class="date">[2013.01.07]</span>
 
 The AngularJS documentation is great for getting started and for looking up specific API calls. However, it doesn't really tell you how to organize and manage your app as it grows to tens or hundreds of thousands of lines of code. I've collected here some of my observations and best practices for how to manage your sprawling application. First we'll take a look at organization, then move on to some tips on improving performance, and conclude with a brief summary on tools, servers, and build processes. While this post will focus on big apps in particular, there's a great [video on YouTube from the December 2012 AngularJS meetup on best practices](https://www.youtube.com/watch?v=ZhfUv0spHCY) that's also worth checking out.
