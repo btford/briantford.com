@@ -10,7 +10,7 @@ JS_IN_DIR = js
 JS_FILES = $(shell find $(JS_IN_DIR)/ -type f -name '*.js')
 
 # output
-OUT_DIR = out
+OUT_DIR = build
 
 STATIC_IN_DIR = static
 STATIC_OUT_DIR = $(OUT_DIR)
@@ -25,11 +25,11 @@ JS_CONCAT_FILES = $(shell find $(JS_IN_DIR)/*.js)
 all: html css static_files rss
 
 html:
-	node compile.js
+	quinoa jade/blog
 
 css: out/css/style.min.css
 
-out/css/style.slim.css: $(shell find $(STATIC_OUT_DIR) -type f -name '*.html') $(shell find $(STATIC_OUT_DIR) -type f -name '*.css')
+out/css/style.slim.css: $(shell find $(STATIC_OUT_DIR) -type f -name '*.html') out/css/style.css
 	./node_modules/.bin/uncss --stylesheets css/style.css out/index.html > out/css/style.slim.css
 
 out/css/style.min.css: out/css/style.slim.css
