@@ -1,0 +1,133 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  font-family: Helvetica;
+  background-color: #fcfcfc;
+}
+body {
+  margin: 0 30px;
+  position: relative;
+}
+header {
+  position: fixed;
+  bottom: 0;
+  right: -64px;
+  width: 64px;
+  -webkit-transform-origin: bottom left;
+  -webkit-transform: rotate(-90deg);
+  transform-origin: bottom left;
+  transform: rotate(-90deg)
+}
+header a{
+  display: block;
+  text-decoration: none;
+  color: #ddd;
+  font-size: 32px;
+  white-space: nowrap;
+  -webkit-transition: color 0.156s;
+  transition: color 0.156s,font-size 0.156s
+}
+header a:hover{
+  color:#444;
+  font-size:64px;
+}
+
+h1, h2, h3, h4, h5 {
+  position: relative;
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a {
+  display: block;
+  padding-right: 26px;
+  padding-left: 10px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+h1 > a {
+  text-decoration: none;
+}
+
+h1 > a:focus,
+h2 > a:focus,
+h3 > a:focus,
+h4 > a:focus,
+h5 > a:focus,
+.header-link:focus {
+  outline: none;
+}
+
+.header-link {
+  display: none;
+  position: relative;
+  right: 0;
+}
+.header-link:before {
+  content: '#';
+}
+h1:hover .header-link,
+h2:hover .header-link,
+h3:hover .header-link,
+h4:hover .header-link,
+h5:hover .header-link {
+  display: inline-block;
+}
+
+article h1{
+  font-size:36px
+}
+article > p{
+  font-size:20px;
+  width: 66%;
+}
+article blockquote{
+  font-size:20px;
+}
+article aside{
+  float:right;
+  width:33%;
+  margin: 0 0 0 24px;
+  z-index:100;
+}
+article > *:before,
+article > *:after {
+  content: " ";
+  display: table;
+}
+article p:after,
+article pre:after,
+article aside:after{
+  clear: both
+}
+blockquote {
+  width: 66%;
+  display: table;
+  padding: 11px 22px;
+  background-color: rgba(0, 0, 0, 0.05);
+  font-weight: lighter;
+  font-style: italic; font-size: 24px; margin: 0;
+}
+blockquote > footer {
+  float: right;
+}
+pre {
+  font-family: monospace, sans-serif;
+  border-width: 1px;
+  color: #fff;
+  background-color: #272727;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  margin: auto;
+  display: inline-block;
+}
