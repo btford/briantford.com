@@ -81,7 +81,9 @@ angular.module('btford.ng-src', []).
 
 ## Why isn't this perfectly reasonable behavior in Angular core?
 
-It could be! The point is that you can make crazy changes to Angular yourself.
+It could be!
+[Here's an issue you can track on GitHub](https://github.com/angular/angular.js/issues/6984).
+The point is that you can make crazy changes to Angular yourself.
 
 Have fun.
 
