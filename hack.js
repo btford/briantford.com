@@ -4,18 +4,18 @@ var renderer  = new marked.Renderer();
 
 // anchors for headings
 renderer.heading = function (text, level) {
-  var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-
   if (level === 1) {
     return '<h1><a href="../">«</a> ' + text + '</h1>';
   }
 
+  var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+
   return '<h' + level + '><a name="' +
-                escapedText +
-                 '" class="anchor" href="#' +
-                 escapedText +
-                 '"><span class="header-link"></span></a>' +
-                  text + '</h' + level + '>';
+      escapedText +
+      '" class="anchor" href="#' +
+      escapedText +
+      '"><span class="header-link"></span></a>' +
+      text + '</h' + level + '>';
 };
 
 marked.setOptions({
