@@ -20,5 +20,8 @@
     "url": "git://github.com/btford/briantford.com.git"
   },
   "author": "btford",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "highlight.js": "^8.0.0"
+  }
 }

@@ -1,6 +1,11 @@
-var highlight = require('eshighlight');
-var marked    = require('marked');
-var renderer  = new marked.Renderer();
+var eshighlight = require('eshighlight');
+var hljs        = require('highlight.js');
+var marked      = require('marked');
+var renderer    = new marked.Renderer();
+
+hljs.configure({
+  classPrefix: ''
+});
 
 // anchors for headings
 renderer.heading = function (text, level) {
@@ -25,9 +30,19 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   highlight: function (code, language) {
-    if (language === 'javascript') {
-      return highlight(code);
-    } else {
+    try {
+      if (language === 'javascript') {
+        return eshighlight(code);
+      } else if (language) {
+        if (language === 'shell') {
+          language = 'bash';
+        }
+        if (language === 'json') {
+          language = 'javascript';
+        }
+        return hljs.highlight(language, code).value;
+      }
+    } catch (e) {
       return code;
     }
   },
