@@ -57,4 +57,23 @@ module.exports = function (env) {
   env.addFilter('json', function (str) {
     return JSON.stringify(str, null, 2);
   });
+
+  env.addPrerender(function (data) {
+    data.blogs = data.pages.filter(function (page) {
+      return page.outPath.match(/^blog\/.+\/index\.html$/);
+    }).map(function (page) {
+      page.permalink = page.outPath.substr(0, page.outPath.length - 11);
+      page.authored = getDate(page.content);
+      return page;
+    }).sort(function (a, b) {
+      return a.authored > b.authored ? -1 : 1;
+    });
+  });
+
 };
+
+var DATE = /\<span class="date"\>\[(.+?)\]\<\/span\>/;
+
+function getDate (markdown) {
+  return (markdown.match(DATE) || [])[1] || '';
+}
