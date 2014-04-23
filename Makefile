@@ -25,7 +25,7 @@ JS_CONCAT_FILES = $(shell find $(JS_IN_DIR)/*.js)
 all: html css static_files rss
 
 html:
-	./node_modules/.bin/quinoa jade/blog
+	./node_modules/.bin/quinoa jade
 
 css: out/css/style.min.css
 
