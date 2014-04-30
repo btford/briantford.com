@@ -9,7 +9,8 @@
 /* plain text */
 @media screen {
   .str,
-  .string {
+  .string,
+  .value {
     color: #e6db74;
   }
 
@@ -32,7 +33,8 @@
     font-style: italic;
   }
 
-  .typ {
+  .typ,
+  .lang-html .attribute {
     color: #a6e22e;
   }
 
@@ -47,7 +49,7 @@
   /* a literal value */
   /* punctuation, lisp open bracket, lisp close bracket */
   /* .pun, .opn, .clo { color: #660 } */
-  .tag,
+  .lang-html .title,
   .control-flow,
   .operator {
     color: #f92672;
