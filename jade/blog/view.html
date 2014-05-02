@@ -12,7 +12,16 @@
 </head>
 <body>
   <div role="main" class="container_12">
-    <article>{{ content | markdown }}</article>
+    <article>
+      {{ ('# ' + title) | markdown }}
+      <p>
+        authored <span class="date">[{{authored | shortDate}}]</span>
+        {% if updated %}
+        – updated <span class="date">[{{updated | shortDate}}]</span>
+        {% endif %}
+      </p>
+      {{ content | markdown }}
+    </article>
     <footer class="clearfix container_12">
       <p><a href="mailto:btford@umich.edu"><i class="icon-envelope-alt"></i></a>
       <a href="http://twitter.com/briantford"><i class="icon-twitter"></i></a>
