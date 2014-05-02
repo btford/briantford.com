@@ -50,6 +50,8 @@ marked.setOptions({
 });
 
 module.exports = function (env) {
+  var blogs;
+
   env.addFilter('markdown', function (str) {
     return marked(str);
   });
@@ -58,22 +60,86 @@ module.exports = function (env) {
     return JSON.stringify(str, null, 2);
   });
 
-  env.addPrerender(function (data) {
-    data.blogs = data.pages.filter(function (page) {
-      return page.outPath.match(/^blog\/.+\/index\.html$/);
-    }).map(function (page) {
-      page.permalink = page.outPath.substr(0, page.outPath.length - 11);
-      page.authored = getDate(page.content);
-      return page;
-    }).sort(function (a, b) {
-      return a.authored > b.authored ? -1 : 1;
-    });
+  env.addFilter('shortDate', function (str) {
+    var date = str instanceof Date ? str : new Date(str);
+    var month = date.getUTCMonth() + 1;
+    var day = date.getUTCDate();
+    return [
+      date.getUTCFullYear(),
+      month < 10 ? ('0' + month) : month,
+      day < 10 ? ('0' + day) : day
+    ].join('.');
   });
 
+  env.addPreprocess(function (pages) {
+    return pages.
+      map(authorshipAccordingToGit).
+      map(extractMetadata).
+      map(extractTitle).
+      map(extractDate);
+  });
+
+  env.addPrerender(function (data) {
+    data.blogs = blogs || (blogs = getListOfBlogThings(data.pages));
+  });
 };
 
-var DATE = /\<span class="date"\>\[(.+?)\]\<\/span\>/;
+function authorshipAccordingToGit (page) {
+  var shas = Object.keys(page.shas).
+      filter(function (sha) {
+        return sha !== 'fs';
+      }).
+      sort(function (a, b) {
+        return page.shas[a].date - page.shas[b].date;
+      });
 
-function getDate (markdown) {
-  return (markdown.match(DATE) || [])[1] || '';
+  var firstSha  = shas[0];
+  page.authored = page.shas[firstSha].date;
+
+  if (shas.length > 1) {
+    var lastSha   = shas[shas.length - 1];
+    page.updated  = page.shas[lastSha].date;
+  }
+  return page;
+}
+
+function getListOfBlogThings (pages) {
+  return pages.filter(function (page) {
+    return page.outPath.match(/^blog\/[^\/]+\/index\.html$/);
+  }).
+  map(function (page) {
+    page.permalink = page.outPath.substr(0, page.outPath.length - 11);
+    return page;
+  }).
+  sort(function (a, b) {
+    return a.authored > b.authored ? -1 : 1;
+  });
+}
+
+// all @foo bar key-pairs
+function extractMetadata (page) {
+  var re = /@(.+?) (.+?)\n/g;
+  page.content = page.content.replace(re, function (m, g1, g2) {
+    page[g1] = g2;
+    return '';
+  });
+  return page;
+}
+
+var DATE = /\<span class="date"\>\[(.+?)\]\<\/span\>/;
+function extractDate (page) {
+  page.content = page.content.replace(DATE, function (full, date) {
+    page.authored = page.authored || date;
+    return '';
+  });
+  return page;
+}
+
+var TITLE = /#[ ]?(.+)/;
+function extractTitle (page) {
+  page.content = page.content.replace(TITLE, function (full, title) {
+    page.title = page.title || title;
+    return '';
+  });
+  return page;
 }
