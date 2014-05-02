@@ -1,6 +1,10 @@
-# Semicolons
+<!--
+@authored Tue, Sep 25 2012 14:35:00 -400
+-->
 
-<span class="date">[2012.09.25]</span>
+Tue, Sep 25 2012 14:35:00 -400
+
+# Semicolons
 
 I thought I'd expound a bit on one of my recent tweets that garnered more attention than usual:
 

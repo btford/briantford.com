@@ -1,6 +1,8 @@
-# Writing Reusable AngularJS Components with Bower
+<!--
+@authored Mon, Apr 22 2013 08:13:37 -0400
+-->
 
-<span class="date">[2013.04.22]</span>
+# Writing Reusable AngularJS Components with Bower
 
 [Bower](https://github.com/twitter/bower) is a new package manager for client-side components by talented engineers at Twitter. If you come from the Node.js world, you can think of Bower as "NPM for client-side stuff." Incidentally, the API and configuration is very similar to NPM.
 

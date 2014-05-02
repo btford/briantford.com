@@ -1,7 +1,5 @@
 # Understanding Dependency Injection
 
-<span class="date">[2014.04.05]</span>
-
 You might be thinking:
 
 > As a programmer writing programs for many years I am skeptical about things with fancy terminology.

@@ -1,6 +1,8 @@
-# Using the D3.js Visualization Library with AngularJS
+<!--
+@authored Tue, July 31 2012 13:13:37 -0700
+-->
 
-<span class="date">[2012.07.31]</span>
+# Using the D3.js Visualization Library with AngularJS
 
 [D3.js](http://d3js.org/) is very cool. It works at the jQuery level as a wrapper around DOM and SVG with an expressive, functional API. There are a ton of [great examples of what can be done with D3.js](https://github.com/mbostock/d3/wiki/Gallery). By creating [AngularJS directives](http://docs.angularjs.org/guide/directive) that wrap D3.js, you can use the power of AngularJS's data binding to create apps with beautiful visualizations.
 

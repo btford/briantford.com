@@ -1,5 +1,8 @@
+<!--
+@authored Thu, Jun 21 2012 16:25:50 -0700
+-->
+
 # Writing an AngularJS App with an Express + Node.js Backend
-<span class='date'>[2012.06.20]</span>
 
 AngularJS is like the missing [Batarang](http://en.wikipedia.org/wiki/Batarang) on your utility belt of web development awesomeness. It gives you two-way data binding that's both easy to use and fast, a powerful directive system that lets you use create reusable custom components, plus a lot more. [Express](http://expressjs.com/) is an excellent webserver for Node.js that provides routing, middleware, and sessions. Incidentally, the two work quite well together!
 

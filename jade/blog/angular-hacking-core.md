@@ -1,6 +1,8 @@
-# Hacking Core Directives in AngularJS
+<!--
+@authored Thu, Apr 3 2014 13:03:00 -0800
+-->
 
-<span class="date">[2014.04.03]</span>
+# Hacking Core Directives in AngularJS
 
 Because Angular is totally modular, you can easily replace any of its parts.
 
@@ -9,7 +11,7 @@ Because Angular is totally modular, you can easily replace any of its parts.
 
 Lets look at `ngSrc` for a case where this technique is useful:
 
-```
+```html
 <img ng-src="/img/users/{{user.id}}.png">
 ```
 

@@ -1,7 +1,8 @@
+<!--
+@authored Tue, Jul 17 2012 16:49:56 -0700
+-->
 
 # Writing an AngularJS App with Socket.IO
-
-<span class="date">[2012.07.17]</span>
 
 I've written before about [writing an AngularJS app with Express](/blog/angular-express.html), but this time I'll be writing about how to integrate [Socket.IO](http://socket.io/) to add real-time features to an AngularJS application. In this tutorial, I'm going to walk through writing a instant messaging app. This builds upon my earlier tutorial (using a similar node.js stack on the server), so I recommend checking that out first if you haven't.
 

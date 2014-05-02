@@ -1,6 +1,8 @@
-# Using Yeoman with AngularJS
+<!--
+@authored Mon, Sep 10 2012 19:02:13 -400
+-->
 
-<span class="date">[2012.09.10]</span>
+# Using Yeoman with AngularJS
 
 [Yeoman](http://yeoman.io/) is a new tool for simplifying your client-side development workflow. It supports a variety of different tools and frameworks, but I'm going to focus specifically on how it helps write AngularJS applications.
 
