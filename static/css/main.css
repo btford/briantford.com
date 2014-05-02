@@ -1,3 +1,5 @@
+@charset  UTF-8;
+
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -6,33 +8,20 @@
 html {
   font-family: Helvetica;
   background-color: #fcfcfc;
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  background-color: #333;
 }
 body {
-  margin: 0 30px;
   position: relative;
-}
-header {
-  position: fixed;
-  bottom: 0;
-  right: -64px;
-  width: 64px;
-  -webkit-transform-origin: bottom left;
-  -webkit-transform: rotate(-90deg);
-  transform-origin: bottom left;
-  transform: rotate(-90deg)
-}
-header a{
-  display: block;
-  text-decoration: none;
-  color: #ddd;
-  font-size: 32px;
-  white-space: nowrap;
-  -webkit-transition: color 0.156s;
-  transition: color 0.156s,font-size 0.156s
-}
-header a:hover{
-  color:#444;
-  font-size:64px;
+  margin: 0;
+  line-height: 1.231;
+  font-size: 1em;
+  font-family: Lato,sans-serif;
+  color: #fff;
 }
 
 h1, h2, h3, h4, h5 {
@@ -84,11 +73,15 @@ h5:hover .header-link {
   display: inline-block;
 }
 
+article {
+  padding: 1.5em;
+}
+
 article h1{
-  font-size:36px
+  font-size: 36px
 }
 article > p{
-  font-size:20px;
+  font-size: 20px;
   width: 66%;
 }
 article blockquote{
@@ -108,7 +101,7 @@ article > *:after {
 article p:after,
 article pre:after,
 article aside:after{
-  clear: both
+  clear: both;
 }
 blockquote {
   width: 66%;
@@ -122,7 +115,8 @@ blockquote > footer {
   float: right;
 }
 pre {
-  font-family: monospace, sans-serif;
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
   border-width: 1px;
   color: #fff;
   background-color: #272727;
@@ -130,4 +124,155 @@ pre {
   padding: 5px;
   margin: auto;
   display: inline-block;
+}
+
+
+
+/* =============================================================================
+   Primary styles (default + mobile)
+   Author: Brian Ford
+   ========================================================================== */
+
+footer,header,section {
+  display: block;
+}
+
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:active,a:hover {
+  outline: 0;
+}
+
+button::-moz-focus-inner,input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: FontAwesome;
+  src: url(../font/fontawesome-webfont.eot?v=3.0.1);
+  src: url(../font/fontawesome-webfont.eot?#iefix&v=3.0.1) format(embedded-opentype),url(../font/fontawesome-webfont.woff?v=3.0.1) format(woff),url(../font/fontawesome-webfont.ttf?v=3.0.1) format(truetype);
+  font-weight: 400;
+  font-style: normal;
+}
+
+[class^=icon-] {
+  font-family: FontAwesome;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  display: inline;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  vertical-align: baseline;
+  background-image: none;
+  background-position: 0 0;
+  background-repeat: repeat;
+  margin-top: 0;
+}
+
+[class^=icon-]:before {
+  text-decoration: inherit;
+  display: inline-block;
+  speak: none;
+}
+
+a [class^=icon-] {
+  display: inline-block;
+}
+
+.btn .icon-spin {
+  height: auto;
+}
+
+.icon-spin.icon-large {
+  height: 1.25em;
+}
+
+.btn .icon-spin.icon-large {
+  height: .75em;
+}
+
+.icon-twitter:before {
+  content: "\f099";
+}
+
+.icon-github:before {
+  content: "\f09b";
+}
+
+.icon-rss:before {
+  content: "\f09e";
+}
+
+.icon-google-plus-sign:before {
+  content: "\f0d4";
+}
+
+.icon-envelope-alt:before {
+  content: "\f0e0";
+}
+
+
+header {
+  white-space: nowrap;
+}
+
+header h1 {
+  color: #fff;
+  font-family: Raleway,arial;
+  font-style: normal;
+  font-weight: 500;
+  text-shadow: 3px 3px 1px #111;
+  margin-bottom: .05em;
+  margin-top: 0;
+}
+
+footer {
+  font-size: 2em;
+  text-shadow: 2px 2px 1px #111;
+  margin-top: 3em;
+  margin-bottom: 1em;
+  margin-left: 1.5em;
+  text-align: center;
+}
+
+.date {
+  color: #70a078;
+}
+
+.copyright {
+  font-size: .67em;
+}
+
+p {
+  margin-bottom: 0;
+  margin-top: .75em;
+}
+
+a,a:active,a:visited {
+  color: #7088A0;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #90A8C0;
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+  font-size: 4em;
+}
+
+section p {
+  margin-left: .5em;
+  font-size: 1.1em;
 }
