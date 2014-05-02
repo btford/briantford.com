@@ -15,7 +15,7 @@
     <section>
       <h2>Blog</h2>
       {% for page in blogs %}
-      <p><span class="date">[{{ page.authored }}]</span>
+      <p><span class="date">[{{ page.authored | shortDate }}]</span>
       <a href="/{{ page.permalink }}">{{ page.title }}</a></p>
       {% endfor %}
     </section>
