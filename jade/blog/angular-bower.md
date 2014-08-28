@@ -8,7 +8,7 @@
 
 How does Bower relate to AngularJS? If you've used [Yeoman](https://github.com/yeoman/generator-angular), you might have noticed Bower being used to install and update libraries like AngularJS. But besides just JavaScript managing the versions of various libraries for your app, you can use Bower to find, install, update, and even publish your own reusable components. I'm really excited about the prospect of having a bunch of AngularJS components that I can easily import into my own projects, and Bower is certainly a great step towards making that a reality.
 
-It's worth mentioning that I think Bower is still far from perfect. For instance, it's still a bit challenging to have stable versus unstable releases. There are still some conventions in flux (like `component.json` will soon be `bower.json`). Still, I see a lot of great improvements coming in the near future, and I think now is a great time to start looking at Bower for use in your apps. To that end, this post aims to explain how to use AngularJS components in your apps, and how to create your own with an eye for best practices.
+It's worth mentioning that I think Bower is still far from perfect. For instance, it's still a bit challenging to have stable versus unstable releases. Still, I see a lot of great improvements coming in the near future, and I think now is a great time to start looking at Bower for use in your apps. To that end, this post aims to explain how to use AngularJS components in your apps, and how to create your own with an eye for best practices.
 
 ## Modules, and Components, and Packages! Oh, my!
 
@@ -179,7 +179,7 @@ Then create the initial commit, following the SemVerTag conventions:
 λ → git tag v0.0.0
 ```
 
-Keep in mind that Bower uses the git tags to determine what versions are available for your component. Publishing a new version is as simple as updating the version number in `component.json`, committing, and creating a new tag. Be sure that the tag matches the version number given in `component.json`, and (as always) follow the [SemVer conventions](http://semver.org/spec/v1.0.0.html) for versioning.
+Keep in mind that Bower uses the git tags to determine what versions are available for your component. Publishing a new version is as simple as updating the version number in `bower.json`, committing, and creating a new tag. Be sure that the tag matches the version number given in `bower.json`, and (as always) follow the [SemVer conventions](http://semver.org/spec/v1.0.0.html) for versioning.
 
 Now we just have to push these changes to a git repo. Github is a great choice, so let's go with that. Let's make a repo called `angular-my-component` and push these changes to it (replacing names appropriately):
 
