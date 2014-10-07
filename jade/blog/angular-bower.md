@@ -146,7 +146,7 @@ So far so good. We need to include AngularJS as a dependency. Edit `bower.json` 
 ```
 
 
-You probably were able to guess that `1.0.6` refers to the version of AngularJS, but what's that `~` for? This prefix basically means "install the highest 1.0.x version." AngularJS follows the [Semantic Versioning specification](http://semver.org/spec/v1.0.0.html) (often abbreviated to semver). This means that the lowest version number (also called the "patch" number) is for fixes that don't change APIs in a way that is not backwards compatible. In short, this ensures that users of your component will be using a version of AngularJS that has all the latest bug fixes, but not a version whose APIs have changed since you wrote your module.
+You probably were able to guess that `1.0.6` refers to the version of AngularJS, but what's that `~` for? This prefix basically means "install the highest 1.0.x version". AngularJS follows the [Semantic Versioning specification](http://semver.org/spec/v1.0.0.html) (often abbreviated to semver). This means that the lowest version number (also called the "patch" number) is for fixes that don't change APIs in a way that is not backwards compatible. In short, this ensures that users of your component will be using a version of AngularJS that has all the latest bug fixes, but not a version whose APIs have changed since you wrote your module.
 
 Now let's add to `directive.js`. As stated before, we want to copy some implementation from an existing app. Still, we should think about how to organize the code. In general, each Bower component should have one AngularJS module associated with it. AngularJS modules can be arbitrary strings, but their names should be unique, since AngularJS will only use the last-registered module for a given name. For this reason, I like to namespace my modules with my Github handle. Therefore, the module declaration looks like this:
 
@@ -154,7 +154,7 @@ Now let's add to `directive.js`. As stated before, we want to copy some implemen
 angular.module('your-name.my-directive', []);
 ```
 
-Similarly, AngularJS only allows one directive of a given name. I like to use a three-letter namespace for directives, because otherwise the HTML using the directive starts to feel a bit too verbose. I typically use `btf`, my initials, so the directive registration looks something like this:
+For directives, I like to use a three-letter namespace, because otherwise the HTML using the directive starts to feel a bit too verbose. I typically use `btf`, my initials, so the directive registration looks something like this:
 
 ```javascript
 angular.module('your-name.my-directive', []).
@@ -174,12 +174,12 @@ Let's initialize a repo:
 Then create the initial commit, following the SemVerTag conventions:
 
 ```shell
-λ → git add directive package.json
+λ → git add directive bower.json
 λ → git commit -m "v0.0.0"
 λ → git tag v0.0.0
 ```
 
-Keep in mind that Bower uses the git tags to determine what versions are available for your component. Publishing a new version is as simple as updating the version number in `component.json`, committing, and creating a new tag. Be sure that the tag matches the version number given in `component.json`, and (as always) follow the [SemVer conventions](http://semver.org/spec/v1.0.0.html) for versioning.
+Keep in mind that Bower uses the git tags to determine what versions are available for your component. Publishing a new version is as simple as updating the version number in `bower.json`, committing, and creating a new tag. Be sure that the tag matches the version number given in `bower.json`, and (as always) follow the [SemVer conventions](http://semver.org/spec/v1.0.0.html) for versioning.
 
 Now we just have to push these changes to a git repo. Github is a great choice, so let's go with that. Let's make a repo called `angular-my-component` and push these changes to it (replacing names appropriately):
 
@@ -241,7 +241,7 @@ In your application directory, run:
 λ → bower link angular-my-component
 ```
 
-What does this do? Basically, it creates a symbolic link from the `angular-my-directive` directory to the appropriate directoy inside of `components` for the app. Thus, when you make changes to the component, they'll be reflected in your app. This is a great way to develop an app and a set of resuable components alongside eachother.
+What does this do? Basically, it creates a symbolic link from the `angular-my-directive` directory to the appropriate directory inside of `components` for the app. Thus, when you make changes to the component, they'll be reflected in your app. This is a great way to develop an app and a set of reusable components alongside eachother.
 
 ### Adding Tests
 
@@ -256,8 +256,8 @@ For guidelines on testing directives, check out [Vojta Jina's talk](http://www.y
 Although I touched on this in the tutorial above, I've consolidated these opinionated conventions in one place to make it a bit easier to digest. These are the loose conventions I've been using to name Bower packaged AngularJS modules:
 
 * Module name: `<author>.<optional-namespace>.<thing-name>-<optional-thing-type>`
-* Service/Directive name: Choose a (short) namespace. I've using "btf," my initials. See my [dragon-drop directive](https://github.com/btford/angular-dragon-drop/blob/master/dragon-drop.js#L10) for an example.
-* Bower registered name: `angular-<optional-namespace>-<optional-thing-type>`
+* Service/Directive name: Choose a (short) namespace. I've been using "btf," my initials. See my [dragon-drop directive](https://github.com/btford/angular-dragon-drop/blob/master/dragon-drop.js#L10) for an example.
+* Bower registered name: `angular-<thing-name>-<optional-thing-type>`
 * File name: `<thing-name>.js`
 * Github repo(s)
     * source repo: `angular-<thing name>`
@@ -271,19 +271,19 @@ I like giving an `<optional-thing-type>` for directives and filters when it's no
 
 I like giving an `<optional-namespace>` when I have a group of similar components, as when writing wrappers for PhoneGap.
 
-I wouldn't bother creating a separate "build repo" for most projects. If the build step is "[ngmin](https://github.com/btford/ngmin) + uglify," users of this component can have their project's build system take care of it. If you have something more involved, then I think the build/release repo is a fine approach.
+I wouldn't bother creating a separate "build repo" for most projects. If the build step is "[ngmin](https://github.com/btford/ngmin)/[ng-annotate](https://github.com/olov/ng-annotate) + uglify," users of this component can have their project's build system take care of it. If you have something more involved, then I think the build/release repo is a fine approach.
 
 ### Bower Package Stewardship
 
 While I think sharing code is great, there's no need to globally register absolutely everything to Bower to be able to use it. As mentioned earlier, Bower lets you install from Github like this:
 
 ```
-λ → bower install btford/angular-dragon-drop
+λ → bower install btford/angular-socket-io
 ```
 
 This command will resolves to the repo at `git@github.com:btford/angular-socket-io.git`.
 
-Bower also lets you install from arbitrary git repos, so if I didn't want to publicly register on Github. You can do the following:
+Bower also lets you install from arbitrary git repos. So if you don't want to publicly register on Github, you can do the following:
 
 ```
 λ → bower install git@github.com:btford/angular-socket-io.git
@@ -291,7 +291,7 @@ Bower also lets you install from arbitrary git repos, so if I didn't want to pub
 
 This is handy if you have some company-specific code you're sharing between projects. You can put this code on a private repo, but still install via Bower.
 
-My point is to share things that make sense, but not register a package for absolutely everything. If you're not going to be watching Github and responding to issues, don't register it. Just advise users to `bower install my-name/my-component` (or fork it and do `bower install your-name/whatever-component` ).
+My point is to share things that make sense, but not register a package for absolutely everything. If you're not going to be watching Github and responding to issues, don't register it. Just advise users to `bower install your-name/my-component` (or fork it and do `bower install their-name/my-component` ).
 
 Please don't claim a name in the Bower registry if you don't think you'll be able to follow up and help maintain and improve it (or are willing to hand it off to someone else to do so). When in doubt, just use the `bower install user/repo` pattern. You can always register it later.
 
@@ -315,7 +315,7 @@ I also think it's best to avoid "Collections of X" components. One component sho
 
 ### Wrapper Modules
 
-I want to avoid having a million AngularJS apps that just wrap other libs. What do I mean by "wrap?"
+I want to avoid having a million AngularJS apps that just wrap other libs. What do I mean by "wrap"?
 
 Let's say you have the `d3` library, and you want to use it in AngularJS. You could create a component called `angular-d3`, with a file like this:
 
@@ -328,16 +328,16 @@ angular.module('my-d3-module', []).factory('d3', function () {
 
 The reason that this approach is bad is that it creates a lot of maintenance overhead. Using the above example, here are just a few cases that illustrate the problems:
 
-1. Whenever a new version of `d3` is released, `angular-d3` must be updated by copy/pasting the updated `j3.js` code back into our module.
+1. Whenever a new version of `d3` is released, `angular-d3` must be updated by copy/pasting the updated `d3.js` code back into our module.
 2. Issues might be filed on `angular-d3` that are actually bugs/feature requests for `d3`.
 3. The developer of `angular-d3` makes improvements to `angular-d3` that should/could be back-ported to `d3`. Then they release a new version of `angular-d3`.
-4. After `3`, the developer for `d3` releases a new version of `d3` with the same version number as `3`'s effective fork of `d3`, creating confusion for users of `angular-d3` and `d3`.
+4. Later on, the developer for `d3` releases a new version of `d3` with the same version number as the previously updated effective fork of `d3`, creating confusion for users of `angular-d3` and `d3`.
 
 The "right" way to use `d3` right now is to include it as a dependency of some directive that accesses the library directly off of `window.d3`.
 
 **tl;dr: please don't create wrapper modules for components that expose their APIs on `window.whatever`. Just use the API off `window` for now. If Angular needs `$apply` for some `foo-lib` library, feel free to write an adapter, but the adapter should depend on `foo-lib`, not include the files for it.**
 
-The ideal solution to this problem to be standardized ES6/ES7/ESEventually modules and Web Components, but we still don't know when something like that will land.
+The ideal solution to this problem would be standardized ES6/ES7/ESEventually modules and Web Components, but we still don't know when something like that will land.
 
 ## Conclusion
 
