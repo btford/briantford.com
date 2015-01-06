@@ -53,7 +53,7 @@ Define and configure all modules in `app.js`:
 
 ```javascript
 angular.module('yourAppName', ['yourAppDep']);
-angular.module('yourAppDep');
+angular.module('yourAppDep', []);
 ```
 
 Define controllers, services, etc. on modules like this:
