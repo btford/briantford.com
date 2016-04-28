@@ -167,7 +167,7 @@ Now we need to connect these views to controllers. Open `public/js/app.js` and m
 
 ```javascript
 // Declare app level module which depends on filters, and services
-angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives']).
+angular.module('myApp', ['myApp.filters','myApp.controllers', 'myApp.services', 'myApp.directives']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/', {
