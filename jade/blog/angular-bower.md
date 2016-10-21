@@ -174,7 +174,7 @@ Let's initialize a repo:
 Then create the initial commit, following the SemVerTag conventions:
 
 ```shell
-λ → git add directive package.json
+λ → git add directive.js bower.json
 λ → git commit -m "v0.0.0"
 λ → git tag v0.0.0
 ```
